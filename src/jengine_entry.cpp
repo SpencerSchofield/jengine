@@ -7,7 +7,9 @@ int main (int argc, char** argv) {
 
 	while (!jengine->finished) {
 		jengine->update();
+		jengine->renderer->startFrame();
 		jengine->draw();
+		jengine->renderer->endFrame();
 	}
 
 	jengine->onShutdown();

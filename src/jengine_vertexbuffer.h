@@ -1,6 +1,9 @@
 #ifndef VERTEXBUFFER_H
 #define VERTEXBUFFER_H
 
+#include "jengine_vertexattribute.h"
+#include <vector>
+
 namespace Jengine {
 
 	enum USE {
@@ -24,10 +27,17 @@ namespace Jengine {
 		~VertexBuffer();
 
 		void bind();
+		void addAttribute(unsigned int type, unsigned int count);
+
+		VertexAttribute& operator[](int index);
+
+		VertexAttribute& attribute(int index);
 
 	private:
 		unsigned int glId;
 		static unsigned int currentlybound;
+		std::vector<VertexAttribute> attributes;
+		unsigned int attributeOffset;
 
 	};
 }
