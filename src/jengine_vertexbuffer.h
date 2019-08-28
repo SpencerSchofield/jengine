@@ -1,6 +1,7 @@
 #ifndef VERTEXBUFFER_H
 #define VERTEXBUFFER_H
 
+#include "jengine_globject.h"
 #include "jengine_vertexattribute.h"
 #include <vector>
 
@@ -20,13 +21,12 @@ namespace Jengine {
 
 
 
-	class VertexBuffer
+	class VertexBuffer : public GLObject
 	{
 	public:
 		VertexBuffer(const void* data, unsigned int size, unsigned int usage);
-		~VertexBuffer();
+		~VertexBuffer() override;
 
-		void bind();
 		void addAttribute(unsigned int type, unsigned int count);
 
 		VertexAttribute& operator[](int index);
@@ -34,8 +34,9 @@ namespace Jengine {
 		VertexAttribute& attribute(int index);
 
 	private:
-		unsigned int glId;
-		static unsigned int currentlybound;
+
+		void onBind() override;
+
 		std::vector<VertexAttribute> attributes;
 		unsigned int attributeOffset;
 

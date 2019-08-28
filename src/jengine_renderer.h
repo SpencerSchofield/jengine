@@ -3,6 +3,8 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "jengine_vertexarray.h"
+#include "jengine_shader.h"
 
 namespace Jengine {
 
@@ -15,6 +17,8 @@ namespace Jengine {
 		void endFrame();
 		void setClearColor(float r, float g, float b, float a);
 		void clearColor(float& r, float& g, float& b, float& a);
+
+		void drawTriangles(VertexArray& vertexArray, Shader& shader);
 	private:
 		GLFWwindow* window;
 		struct {float r,g,b,a;} color;

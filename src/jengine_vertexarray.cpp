@@ -4,8 +4,6 @@
 
 namespace Jengine {
 
-	unsigned int VertexArray::currentlyBound = 0;
-
 	VertexArray::VertexArray(VertexBuffer* vertexBuffer)
 		: vertexBuffer(vertexBuffer)
 	{
@@ -16,16 +14,11 @@ namespace Jengine {
 	VertexArray::~VertexArray()
 	{
 		glDeleteVertexArrays(1, &this->glId);
-		if (this->glId == currentlyBound)
-			currentlyBound = 0;
 	}
 
-	void VertexArray::bind()
+	void VertexArray::onBind()
 	{
-		if (this->glId == currentlyBound)
-			return;
 		glBindVertexArray(this->glId);
-		currentlyBound = this->glId;
 	}
 
 } // namespace Jengine

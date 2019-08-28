@@ -17,6 +17,15 @@ bool Test::onStartup() {
 	this->d->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 2);
 	(*this->d)[0].enable();
 	this->renderer->setClearColor(0, 0, 0, 1);
+
+
+	// Jengine Script test
+
+	Jengine::Script::Expression a(5);
+	Jengine::Script::Expression b(10);
+	Jengine::Script::Operator op(Jengine::Script::Operator::TYPE::ADD, &a, &b);
+	double output = ((Jengine::Script::Number*)op.value())->value;
+	std::cout << output << '\n';
 }
 
 bool Test::onShutdown()

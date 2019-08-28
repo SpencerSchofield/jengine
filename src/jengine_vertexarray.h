@@ -2,24 +2,22 @@
 #define VERTEXARRAY_H
 
 #include <GL/glew.h>
+#include "jengine_globject.h"
 #include "jengine_vertexbuffer.h"
 #include "jengine_vertexattribute.h"
 
 namespace Jengine {
 
-	class VertexArray
+	class VertexArray : public GLObject
 	{
 	public:
 		VertexArray(VertexBuffer* vertexBuffer);
-		~VertexArray();
-
-		void bind();
+		~VertexArray() override;
 
 		VertexBuffer* const vertexBuffer;
 
 	private:
-		unsigned int glId;
-		static unsigned int currentlyBound;
+		void onBind() override;
 	};
 
 } // namespace Jengine

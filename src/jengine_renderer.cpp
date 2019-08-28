@@ -40,4 +40,11 @@ namespace Jengine {
 		a = this->color.a;
 	}
 
+	void Renderer::drawTriangles(VertexArray& vertexArray, Shader& shader)
+	{
+		vertexArray.bind();
+		shader.bind();
+		//glDrawElements(GL_TRIANGLES, , GL_UNSIGNED_INT, nullptr);
+	}
+
 } // namespace Jengine
