@@ -7,7 +7,7 @@
 #include "jengine_renderer.h"
 #include "jengine_shader.h"
 
-
+#include "jengine_file.h"
 #include "jengine_script.h"
 
 #endif // JENGINE_H

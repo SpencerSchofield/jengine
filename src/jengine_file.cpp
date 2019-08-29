@@ -18,4 +18,23 @@ namespace Jengine::File {
 		return out;
 	}
 
+	std::vector<std::string> splitByDelimeter(std::string x, const std::string& delimeter) {
+		std::vector<std::string> out;
+		int found = 0;
+		while ((found = x.find(delimeter, found)) != -1) {
+			if (found)
+				out.emplace_back(x.substr(0,found+1));
+			x.erase(0, found+1);
+		}
+		return out;
+	}
+
+	std::string removeOccurences(std::string x, const std::string& remove) {
+		int found = 0;
+		while ((found = x.find(remove, found)) != -1) {
+			x.erase(found, remove.length());
+		}
+		return x;
+	}
+
 } // namespace Jengine

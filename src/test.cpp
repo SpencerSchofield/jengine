@@ -23,9 +23,16 @@ bool Test::onStartup() {
 
 	Jengine::Script::Expression a(5);
 	Jengine::Script::Expression b(10);
-	Jengine::Script::Operator op(Jengine::Script::Operator::TYPE::ADD, &a, &b);
-	double output = ((Jengine::Script::Number*)op.value())->value;
-	std::cout << output << '\n';
+	Jengine::Script::Expression c(2);
+	Jengine::Script::Expression op1(Jengine::Script::Operator::TYPE::MULTIPLY, &a, &b);
+	Jengine::Script::Expression op2 (Jengine::Script::Operator::TYPE::ADD, &op1, &c);
+	Jengine::Script::Number x;
+	Jengine::Script::Expression op3(Jengine::Script::Operator::ASSIGN, x, &op2);
+	op3.value();
+	double output = x.value;//Jengine::Script::Number(op2.value()).value;
+	//std::cout << output << '\n';
+
+	Jengine::Script::createProgram(Jengine::File::loadFileToString("../../res/scripts/ex1.jua"));
 }
 
 bool Test::onShutdown()
