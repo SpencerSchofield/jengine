@@ -3,22 +3,28 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 
-Test::Test() : Jengine::Application("Test", 1280, 720) {
+Test::Test() : Jengine::Application("Test", 640, 480) {
 
 }
 
 bool Test::onStartup() {
 	float pos[] = {
-		-1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,
-		1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, -1.0f,
 
-		-1.0f, -1.0f, 1.0f,
-		1.0f, -1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f
+		// back verticies
+		-1.0f, -1.0f, -1.0f,	1.0f,1.0f,1.0f,1.0f,
+		1.0f, -1.0f, -1.0f,		1.0f,0.0f,0.0f,1.0f,
+		1.0f, 1.0f, -1.0f,		0.0f,1.0f,0.0f,1.0f,
+		-1.0f, 1.0f, -1.0f,		0.0f,0.0f,1.0f,1.0f,
+
+		// front verticies
+		-1.0f, -1.0f, 1.0f,		1.0f,1.0f,1.0f,1.0f,
+		1.0f, -1.0f, 1.0f,		1.0f,0.0f,0.0f,1.0f,
+		1.0f, 1.0f, 1.0f,		0.0f,1.0f,0.0f,1.0f,
+		-1.0f, 1.0f, 1.0f,		0.0f,0.0f,1.0f,1.0f
 	};
 
 	unsigned int index[] = {
@@ -46,35 +52,34 @@ bool Test::onStartup() {
 		3,7,6,
 		3,6,2
 	};
-	this->d = new Jengine::VertexBuffer(pos, sizeof(pos), Jengine::USE::STATIC_DRAW);
-	this->n = new Jengine::IndexBuffer(index, sizeof(index)/sizeof(unsigned int));
 
-	this->d->bind();
-	this->n->bind();
-	this->program = new Jengine::Shader("../../res/shaders/shader.vert", "../../res/shaders/shader.frag");
+	this->v = new Jengine::VertexArray(new Jengine::VertexBuffer(pos, sizeof(pos), Jengine::USE::STATIC_DRAW),
+									   new Jengine::IndexBuffer(index, sizeof(index)/sizeof(unsigned int)),
+									   new Jengine::Shader("../../res/shaders/shader.vert", "../../res/shaders/shader.frag"));
 
-	this->v = new Jengine::VertexArray(this->d, this->n, this->program);
-
-	this->program->bind();
-
-
+	this->v->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 3);
+	this->v->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 4);
+	(*this->v->vertexBuffer)[0].enable();
+	(*this->v->vertexBuffer)[1].enable();
+	glm::mat4 mvp(1.0f);
+	//glm::vec3 tmp(0.1f, 9.0f, 4.2f);
+	//tmp = glm::normalize(tmp);
+	glm::mat4 model(1.0f);// = glm::rotate(45.0f, tmp);
+	glm::mat4 view(1.0f);
+	glm::mat4 perspective = glm::perspective(60.0f, this->renderer->aspectRatio(), 0.1f, 10.0f);
+	mvp = model * view * perspective;
+	this->v->shader->setUniformMatrix<4,4>("mvp", 1, &mvp[0][0]);
 	this->renderer->setClearColor(0, 0, 0, 1);
-
-	this->d->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 3);
-	(*this->d)[0].enable();
 }
 
 bool Test::onShutdown()
 {
-	delete this->d;
-	delete this->program;
+	delete this->v;
 }
 
 bool Test::draw()
 {
 	renderer->drawTriangles(*this->v);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
-	//glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 bool Test::update()

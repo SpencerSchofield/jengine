@@ -52,4 +52,24 @@ namespace Jengine {
 		glDrawElements(GL_TRIANGLES, vertexArray.indexBuffer->getCount(), GL_UNSIGNED_INT, nullptr);
 	}
 
+	int Renderer::width()
+	{
+		int width;
+		glfwGetWindowSize(this->window, &width, nullptr);
+		return width;
+	}
+
+	int Renderer::height()
+	{
+		int height;
+		glfwGetWindowSize(this->window, nullptr, &height);
+		return height;
+	}
+
+	float Renderer::aspectRatio() {
+		int width, height;
+		glfwGetWindowSize(this->window, &width, &height);
+		return width / (float) height;
+	}
+
 } // namespace Jengine

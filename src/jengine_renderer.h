@@ -19,6 +19,10 @@ namespace Jengine {
 		void clearColor(float& r, float& g, float& b, float& a);
 
 		void drawTriangles(VertexArray& vertexArray);
+
+		int width();
+		int height();
+		float aspectRatio();
 	private:
 		GLFWwindow* window;
 		struct {float r,g,b,a;} color;

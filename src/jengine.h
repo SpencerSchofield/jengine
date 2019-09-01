@@ -5,6 +5,7 @@
 #include "jengine_vertexbuffer.h"
 #include "jengine_indexbuffer.h"
 #include "jengine_vertexattribute.h"
+#include "jengine_vertexarray.h"
 #include "jengine_renderer.h"
 #include "jengine_shader.h"
 

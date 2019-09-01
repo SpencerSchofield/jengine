@@ -15,10 +15,7 @@ public:
 	bool update() override;
 
 private:
-	Jengine::VertexBuffer* d;
-	Jengine::IndexBuffer* n;
 	Jengine::VertexArray* v;
-	Jengine::Shader* program;
 };
 
 Jengine::Application* jengine = new Test;
