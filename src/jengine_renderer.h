@@ -18,7 +18,7 @@ namespace Jengine {
 		void setClearColor(float r, float g, float b, float a);
 		void clearColor(float& r, float& g, float& b, float& a);
 
-		void drawTriangles(VertexArray& vertexArray, Shader& shader);
+		void drawTriangles(VertexArray& vertexArray);
 	private:
 		GLFWwindow* window;
 		struct {float r,g,b,a;} color;

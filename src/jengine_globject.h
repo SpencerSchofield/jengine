@@ -12,11 +12,13 @@ namespace Jengine {
 
 		void bind();
 
+		unsigned int glId;
+
 	protected:
 
 		inline virtual void onBind() = 0;
 
-		unsigned int glId;
+		//unsigned int glId;
 		static unsigned int currentlyBound;
 	};
 

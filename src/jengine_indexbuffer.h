@@ -8,10 +8,13 @@ namespace Jengine {
 	class IndexBuffer : public GLObject
 	{
 	public:
-		IndexBuffer();
+		IndexBuffer(const unsigned int* data, unsigned int count);
+
+		unsigned int getCount();
 
 	private:
 		void onBind() override;
+		unsigned int count;
 	};
 
 } // namespace Jengine

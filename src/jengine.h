@@ -3,6 +3,7 @@
 
 #include "jengine_application.h"
 #include "jengine_vertexbuffer.h"
+#include "jengine_indexbuffer.h"
 #include "jengine_vertexattribute.h"
 #include "jengine_renderer.h"
 #include "jengine_shader.h"

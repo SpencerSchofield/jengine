@@ -3,9 +3,9 @@
 #include "jengine_file.h"
 #include <GL/glew.h>
 
-namespace Jengine {
+//#include <iostream>
 
-	unsigned int Shader::currentlybound = 0;
+namespace Jengine {
 
 	Shader::Shader(const char* vertex, const char* fragment)
 	{
@@ -29,6 +29,7 @@ namespace Jengine {
 			glGetProgramInfoLog(this->glId, length, &length, log);
 
 			// log
+			//std::cout << log << '\n';
 
 			delete [] log;
 			glDeleteProgram(this->glId);
@@ -38,19 +39,17 @@ namespace Jengine {
 		glDetachShader(this->glId, fragmentId);
 		glDeleteShader(vertexId);
 		glDeleteShader(fragmentId);
+
+		glUseProgram(this->glId);
 	}
 
 	Shader::~Shader() {
 		glDeleteProgram(this->glId);
-		if (this->glId == currentlybound)
-			currentlybound = 0;
 	}
 
-	void Shader::bind() {
-		if (this->glId == currentlybound)
-			return;
+	void Shader::onBind()
+	{
 		glUseProgram(this->glId);
-		currentlybound = this->glId;
 	}
 
 	unsigned int Shader::compileShader(const char* filePath, unsigned int shaderType) {
@@ -68,6 +67,8 @@ namespace Jengine {
 			glGetShaderInfoLog(id, length, &length, log);
 
 			// log
+
+			//std::cout << log << '\n';
 
 			delete [] log;
 			glDeleteShader(id);

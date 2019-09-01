@@ -16,6 +16,8 @@ public:
 
 private:
 	Jengine::VertexBuffer* d;
+	Jengine::IndexBuffer* n;
+	Jengine::VertexArray* v;
 	Jengine::Shader* program;
 };
 

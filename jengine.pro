@@ -37,5 +37,6 @@ LIBS += \
 	-lglfw
 
 DISTFILES += \
+	res/scripts/ex1.jua \
 	res/shaders/shader.frag \
 	res/shaders/shader.vert

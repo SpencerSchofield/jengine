@@ -1,13 +1,19 @@
 #include "jengine_renderer.h"
 
+
+// debug only
+#include <iostream>
+
 namespace Jengine {
 
 	Renderer::Renderer(const char* name, int width, int height)
 	{
-		glfwInit();
+		if (!glfwInit())
+				std::cout << "could not initialize glfw";
 		this->window = glfwCreateWindow(width, height, name, nullptr, nullptr);
 		glfwMakeContextCurrent(this->window);
-		glewInit();
+		if (glewInit() != GLEW_OK)
+			std::cout << "could not initialize glew";
 	}
 
 	Renderer::~Renderer() {
@@ -40,11 +46,10 @@ namespace Jengine {
 		a = this->color.a;
 	}
 
-	void Renderer::drawTriangles(VertexArray& vertexArray, Shader& shader)
+	void Renderer::drawTriangles(VertexArray& vertexArray)
 	{
 		vertexArray.bind();
-		shader.bind();
-		//glDrawElements(GL_TRIANGLES, , GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, vertexArray.indexBuffer->getCount(), GL_UNSIGNED_INT, nullptr);
 	}
 
 } // namespace Jengine

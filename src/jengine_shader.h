@@ -1,22 +1,21 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include "jengine_globject.h"
 
 namespace Jengine {
 
-	class Shader
+	class Shader : public GLObject
 	{
 	public:
 		Shader(const char* vertex, const char* fragment);
-		~Shader();
-		void bind();
+		~Shader() override;
+
 
 	private:
+		void onBind() override;
 
 		unsigned int compileShader(const char* filePath, unsigned int shaderType);
-
-		unsigned int glId;
-		static unsigned int currentlybound;
 	};
 
 } // namespace Jengine
