@@ -13,6 +13,8 @@ namespace Jengine {
 		glVertexAttribPointer(index, count, type, GL_FALSE, typeSize*count, (const void*) offset);
 		if (size)
 			*size = typeSize*count;
+		this->enabled = false;
+		this->index = index;
 	}
 
 	void VertexAttribute::enable() {
