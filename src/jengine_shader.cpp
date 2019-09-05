@@ -3,7 +3,7 @@
 #include "jengine_file.h"
 #include <GL/glew.h>
 
-//#include <iostream>
+#include <iostream>
 
 namespace Jengine {
 
@@ -74,7 +74,7 @@ namespace Jengine {
 
 			// log
 
-			//std::cout << log << '\n';
+			std::cout << log << '\n';
 
 			delete [] log;
 			glDeleteShader(id);

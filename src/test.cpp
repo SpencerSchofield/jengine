@@ -6,8 +6,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
+#include "script/jengine_interpreter.h"
 
-Test::Test() : Jengine::Application("Test", 640, 480) {
+Test::Test() : Jengine::Application("Test", 1280, 720) {
 
 }
 
@@ -15,23 +16,23 @@ bool Test::onStartup() {
 	float pos[] = {
 
 		// back verticies
-		-1.0f, -1.0f, -1.0f,	1.0f,1.0f,1.0f,1.0f,
-		1.0f, -1.0f, -1.0f,		1.0f,0.0f,0.0f,1.0f,
-		1.0f, 1.0f, -1.0f,		0.0f,1.0f,0.0f,1.0f,
-		-1.0f, 1.0f, -1.0f,		0.0f,0.0f,1.0f,1.0f,
-
-		// front verticies
-		-1.0f, -1.0f, 1.0f,		1.0f,1.0f,1.0f,1.0f,
-		1.0f, -1.0f, 1.0f,		1.0f,0.0f,0.0f,1.0f,
-		1.0f, 1.0f, 1.0f,		0.0f,1.0f,0.0f,1.0f,
-		-1.0f, 1.0f, 1.0f,		0.0f,0.0f,1.0f,1.0f
+		-1.0f, -1.0f, -1.0f,	//1.0f,1.0f,1.0f,1.0f,
+		1.0f, -1.0f, -1.0f,		//1.0f,0.0f,0.0f,1.0f,
+		1.0f, 1.0f, -1.0f,		//0.0f,1.0f,0.0f,1.0f,
+		-1.0f, 1.0f, -1.0f,		//0.0f,0.0f,1.0f,1.0f,
+								//
+		// front verticies		//
+		-1.0f, -1.0f, 1.0f,		//1.0f,1.0f,1.0f,1.0f,
+		1.0f, -1.0f, 1.0f,		//1.0f,0.0f,0.0f,1.0f,
+		1.0f, 1.0f, 1.0f,		//0.0f,1.0f,0.0f,1.0f,
+		-1.0f, 1.0f, 1.0f,		//0.0f,0.0f,1.0f,1.0f
 	};
 
 	unsigned int index[] = {
 		// back face
 		0,1,2,
 		0,2,3,
-
+		/*
 		// front face
 		4,5,6,
 		4,6,7,
@@ -51,6 +52,7 @@ bool Test::onStartup() {
 		// bottom face
 		3,7,6,
 		3,6,2
+			*/
 	};
 
 	this->v = new Jengine::VertexArray(new Jengine::VertexBuffer(pos, sizeof(pos), Jengine::USE::STATIC_DRAW),
@@ -58,18 +60,25 @@ bool Test::onStartup() {
 									   new Jengine::Shader("../../res/shaders/shader.vert", "../../res/shaders/shader.frag"));
 
 	this->v->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 3);
-	this->v->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 4);
+	//this->v->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 4);
 	(*this->v->vertexBuffer)[0].enable();
-	(*this->v->vertexBuffer)[1].enable();
-	glm::mat4 mvp(1.0f);
+	//(*this->v->vertexBuffer)[1].enable();
+	//glm::mat4 mvp(1.0f);
 	//glm::vec3 tmp(0.1f, 9.0f, 4.2f);
 	//tmp = glm::normalize(tmp);
-	glm::mat4 model(1.0f);// = glm::rotate(45.0f, tmp);
-	glm::mat4 view(1.0f);
-	glm::mat4 perspective = glm::perspective(60.0f, this->renderer->aspectRatio(), 0.1f, 10.0f);
-	mvp = model * view * perspective;
-	this->v->shader->setUniformMatrix<4,4>("mvp", 1, &mvp[0][0]);
+	//glm::mat4 model(1.0f);// = glm::rotate(45.0f, tmp);
+	//glm::mat4 view(1.0f);
+	//glm::mat4 perspective = glm::perspective(60.0f, this->renderer->aspectRatio(), 0.1f, 10.0f);
+	//mvp = model * view * perspective;
+	//this->v->shader->setUniformMatrix<4,4>("mvp", 1, &mvp[0][0]);
+	this->v->shader->setUniform("size", (float)this->renderer->width(), (float)this->renderer->height());
+	this->v->shader->setUniform("offset", -2.5f, 1.0f, -1.0f, 1.0f);
 	this->renderer->setClearColor(0, 0, 0, 1);
+	Jengine::Script::Lexer lexer(Jengine::File::loadFileToString("../../res/scripts/ex1.jua"));
+	Jengine::Script::Parser parser(lexer);
+	Jengine::Script::Interpreter interpreter(parser);
+	Jengine::Script::Token token = interpreter.run();
+	std::cout << token.value.i << '\n';
 }
 
 bool Test::onShutdown()

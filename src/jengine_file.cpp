@@ -5,7 +5,7 @@ namespace Jengine::File {
 	std::string loadFileToString(const std::string& filePath) {
 		FILE* file = fopen(filePath.c_str(), "rb");
 		if (!file)
-			return "";
+			return "File not opened!";
 		std::fseek(file, 0, SEEK_END);
 		int length = std::ftell(file);
 		std::fseek(file, 0, SEEK_SET);

@@ -1,8 +1,7 @@
-// Comment here
-// Comment there
-// Comment Everywhere
-
-function {
-    jeff
+s = "Hello";
+if (s == "Hello") {
+a = 20;
 }
-a = 10;
+else
+a = 30;
+b = a

@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include "jengine_vertexarray.h"
 #include "jengine_shader.h"
+#include <memory>
 
 namespace Jengine {
 

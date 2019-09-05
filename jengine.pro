@@ -29,6 +29,12 @@ HEADERS += \
 	src/jengine_vertexarray.h \
 	src/jengine_vertexattribute.h \
 	src/jengine_vertexbuffer.h \
+	src/script/jengine_ast.h \
+	src/script/jengine_interpreter.h \
+	src/script/jengine_lexer.h \
+	src/script/jengine_parser.h \
+	src/script/jengine_symbol.h \
+	src/script/jengine_tokens.h \
 	src/test.h
 
 LIBS += \
