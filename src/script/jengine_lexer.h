@@ -136,104 +136,21 @@ namespace Jengine {
 						return stringLiteral();
 					}
 
-					if (this->currentCharacter == '=' && futureCharacter() == '=') {
-						nextCharacter();
-						nextCharacter();
-						return {TOKEN_TYPE::Equal};
+					for (int i = 0; i < TWO_TOKEN_SIZE; ++i) {
+						if (twoToken[i].tokenChar[0] == this->currentCharacter
+							&& twoToken[i].tokenChar[1] == futureCharacter()) {
+							nextCharacter();
+							nextCharacter();
+							return {twoToken[i].type};
+						}
 					}
 
-					if (this->currentCharacter == '=') {
-						nextCharacter();
-						return {TOKEN_TYPE::Assign};
-					}
+					for (int i = ONE_TOKEN_SIZE; i--;) {
+						if (oneToken[i].tokenChar == this->currentCharacter) {
+							nextCharacter();
+							return {oneToken[i].type};
+						}
 
-					if (this->currentCharacter == '!' && futureCharacter() == '=') {
-						nextCharacter();
-						nextCharacter();
-						return {TOKEN_TYPE::NotEqual};
-					}
-
-					if (this->currentCharacter == '+') {
-						nextCharacter();
-						return {TOKEN_TYPE::Plus};
-					}
-
-					if (this->currentCharacter == '-') {
-						nextCharacter();
-						return {TOKEN_TYPE::Minus};
-					}
-
-					if (this->currentCharacter == '*') {
-						nextCharacter();
-						return {TOKEN_TYPE::Multiply};
-					}
-
-					if (this->currentCharacter == '/' && futureCharacter() == '/') {
-						nextCharacter();
-						return {TOKEN_TYPE::IntegerDivide};
-					}
-
-					if (this->currentCharacter == '/') {
-						nextCharacter();
-						return {TOKEN_TYPE::Divide};
-					}
-
-					if (this->currentCharacter == '%') {
-						nextCharacter();
-						return {TOKEN_TYPE::Modulo};
-					}
-
-					if (this->currentCharacter == '&' && futureCharacter() == '&') {
-						nextCharacter();
-						return {TOKEN_TYPE::And};
-					}
-
-					if (this->currentCharacter == '|' && futureCharacter() == '|') {
-						nextCharacter();
-						return {TOKEN_TYPE::Or};
-					}
-
-					if (this->currentCharacter == '>') {
-						nextCharacter();
-						return {TOKEN_TYPE::More};
-					}
-
-					if (this->currentCharacter == '<') {
-						nextCharacter();
-						return {TOKEN_TYPE::Less};
-					}
-
-					if (this->currentCharacter == '(') {
-						nextCharacter();
-						return {TOKEN_TYPE::Lparenthesis};
-					}
-					if (this->currentCharacter == ')') {
-						nextCharacter();
-						return {TOKEN_TYPE::Rparenthesis};
-					}
-					if (this->currentCharacter == '{') {
-						nextCharacter();
-						return {TOKEN_TYPE::LcurlyBrace};
-					}
-					if (this->currentCharacter == '}') {
-						nextCharacter();
-						return {TOKEN_TYPE::RcurlyBrace};
-					}
-					if (this->currentCharacter == '[') {
-						nextCharacter();
-						return {TOKEN_TYPE::LsquareBrace};
-					}
-					if (this->currentCharacter == ']') {
-						nextCharacter();
-						return {TOKEN_TYPE::RsquareBrace};
-					}
-					if (this->currentCharacter == ',') {
-						nextCharacter();
-						return {TOKEN_TYPE::Comma};
-					}
-					if (this->currentCharacter == ';') {
-						nextCharacter();
-						return {TOKEN_TYPE::SemiColon};
 					}
 
 					error("no valid token found");
@@ -243,6 +160,43 @@ namespace Jengine {
 			}
 
 		private:
+
+			static constexpr int ONE_TOKEN_SIZE = 16;
+			static constexpr int TWO_TOKEN_SIZE = 5;
+
+			struct {
+				char tokenChar;
+				TOKEN_TYPE type;
+			} oneToken[ONE_TOKEN_SIZE] = {
+				{'+', TOKEN_TYPE::Plus},
+				{'-', TOKEN_TYPE::Minus},
+				{'=', TOKEN_TYPE::Assign},
+				{'*', TOKEN_TYPE::Multiply},
+				{'/', TOKEN_TYPE::Divide},
+				{'%', TOKEN_TYPE::Modulo},
+				{'>', TOKEN_TYPE::More},
+				{'<', TOKEN_TYPE::Less},
+				{'(', TOKEN_TYPE::Lparenthesis},
+				{')', TOKEN_TYPE::Rparenthesis},
+				{'{', TOKEN_TYPE::LcurlyBrace},
+				{'}', TOKEN_TYPE::RcurlyBrace},
+				{'[', TOKEN_TYPE::LsquareBrace},
+				{']', TOKEN_TYPE::RsquareBrace},
+				{',', TOKEN_TYPE::Comma},
+				{';', TOKEN_TYPE::SemiColon}
+			};
+
+			struct {
+				char tokenChar[3];
+				TOKEN_TYPE type;
+			} twoToken[TWO_TOKEN_SIZE] {
+				{"==", TOKEN_TYPE::Equal},
+				{"!=", TOKEN_TYPE::NotEqual},
+				{"//", TOKEN_TYPE::IntegerDivide},
+				{"&&", TOKEN_TYPE::And},
+				{"||", TOKEN_TYPE::Or}
+			};
+
 			std::string text;
 			int position;
 			char currentCharacter;

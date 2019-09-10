@@ -1,7 +1,15 @@
-s = "Hello";
-if (s == "Hello") {
-a = 20;
+s$ = "Hello";
+function first(x,y,z) {
+};
+function second(w,p,k) {
+};
+b = 40;
+while (s$ == "Hello") {
+    a = 20;
+    while (b > 0) {
+	a = a + 1;
+	b = b - 1;
+    };
+    s$ = "j";
+    a = a
 }
-else
-a = 30;
-b = a

@@ -104,7 +104,9 @@ namespace Jengine {
 			}
 
 			Token visitFunctionDeclaration(AST* node) {
-
+				AST_FunctionDeclaration* t = (AST_FunctionDeclaration*)node;
+				functions[t->token.value.s] = t;
+				return {TOKEN_TYPE::Invalid};
 			}
 
 			Token visitFunctionCall(AST* node) {
@@ -169,6 +171,7 @@ namespace Jengine {
 			Parser parser;
 			SymbolTable table;
 			std::unordered_map<std::string, Token> memory;
+			std::unordered_map<std::string, AST_FunctionDeclaration*> functions;
 		};
 
 	} // namespace Script

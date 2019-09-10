@@ -6,7 +6,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
-#include "script/jengine_interpreter.h"
 
 Test::Test() : Jengine::Application("Test", 1280, 720) {
 

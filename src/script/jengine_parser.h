@@ -20,6 +20,7 @@ namespace Jengine {
 			}
 
 			void eat(TOKEN_TYPE tokenType) {
+				std::cout << this->currentToken.toString() << '\n';
 				if (this->currentToken.type == tokenType)
 					this->currentToken = this->lexer.nextToken();
 				else
@@ -72,11 +73,12 @@ namespace Jengine {
 			}
 
 			AST_StatementList* compoundStatement() {
+				this->previous = AST_TYPE::CompoundStatement;
 				AST_StatementList* result;
 				eat(TOKEN_TYPE::LcurlyBrace);
 				result = statementList();
 				eat(TOKEN_TYPE::RcurlyBrace);
-				previous = AST_TYPE::CompoundStatement;
+				this->previous = AST_TYPE::CompoundStatement;
 				return result;
 			}
 

@@ -667,7 +667,20 @@ namespace Jengine {
 					"SemiColon",
 					"Invalid"
 				};
-				return '<' + ((int)this->type >= 0 && this->type <= TOKEN_TYPE::Invalid ? t[(int)this->type] : "UNKNOWN_TYPE") + ">:value{\"" + this->value.s + "\"," + std::to_string(this->value.f) + ',' + std::to_string(this->value.i) + '}';
+
+				std::string value = this->type == TOKEN_TYPE::IntegerLiteral ?
+										std::to_string(this->value.i) :
+									this->type == TOKEN_TYPE::RealLiteral ?
+										std::to_string(this->value.f) :
+									this->type == TOKEN_TYPE::String
+									|| this->type == TOKEN_TYPE::StringLiteral
+									|| this->type == TOKEN_TYPE::Integer
+									|| this->type == TOKEN_TYPE::Real ?
+										('"' + this->value.s + '"') :
+										"__NO_VALUE__";
+
+				return '<' + ((int)this->type >= 0 && this->type <= TOKEN_TYPE::Invalid ?
+						t[(int)this->type] : "UNKNOWN_TYPE") + ">:{" + value + '}';
 			}
 
 			operator bool() {
