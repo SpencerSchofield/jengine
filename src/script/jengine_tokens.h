@@ -87,7 +87,7 @@ namespace Jengine {
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
+						return Token(TOKEN_TYPE::StringLiteral, std::to_string(this->value.i) + token.value.s);
 					}
 				}
 
@@ -101,17 +101,17 @@ namespace Jengine {
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
+						return Token(TOKEN_TYPE::StringLiteral, std::to_string(this->value.f) + token.value.s);
 					}
 				}
 
 				if (this->type == TOKEN_TYPE::StringLiteral) {
 					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
+						return Token(TOKEN_TYPE::StringLiteral, this->value.s + std::to_string(token.value.i));
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
+						return Token(TOKEN_TYPE::StringLiteral, this->value.s + std::to_string(token.value.f));
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
@@ -130,10 +130,6 @@ namespace Jengine {
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::RealLiteral, this->value.i - token.value.f);
 					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
 				}
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
@@ -143,24 +139,6 @@ namespace Jengine {
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::RealLiteral, this->value.f - token.value.f);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-				}
-
-				if (this->type == TOKEN_TYPE::StringLiteral) {
-					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
 					}
 				}
 				return Token(TOKEN_TYPE::Invalid);
@@ -175,10 +153,6 @@ namespace Jengine {
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::RealLiteral, this->value.i * token.value.f);
 					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
 				}
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
@@ -188,24 +162,6 @@ namespace Jengine {
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::RealLiteral, this->value.f * token.value.f);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-				}
-
-				if (this->type == TOKEN_TYPE::StringLiteral) {
-					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
 					}
 				}
 				return Token(TOKEN_TYPE::Invalid);
@@ -220,10 +176,6 @@ namespace Jengine {
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::RealLiteral, this->value.i / token.value.f);
 					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
 				}
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
@@ -234,25 +186,8 @@ namespace Jengine {
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::RealLiteral, this->value.f / token.value.f);
 					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
 				}
 
-				if (this->type == TOKEN_TYPE::StringLiteral) {
-					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-				}
 				return Token(TOKEN_TYPE::Invalid);
 			}
 
@@ -261,43 +196,8 @@ namespace Jengine {
 					if (token.type == TOKEN_TYPE::IntegerLiteral) {
 						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i % token.value.i);
 					}
-
-					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
 				}
-
-				if (this->type == TOKEN_TYPE::RealLiteral) {
-					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-				}
-
-				if (this->type == TOKEN_TYPE::StringLiteral) {
-					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-				}
+				
 				return Token(TOKEN_TYPE::Invalid);
 			}
 
@@ -310,10 +210,6 @@ namespace Jengine {
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i > token.value.f);
 					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
 				}
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
@@ -323,24 +219,6 @@ namespace Jengine {
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::IntegerLiteral, this->value.f > token.value.f);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-				}
-
-				if (this->type == TOKEN_TYPE::StringLiteral) {
-					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
 					}
 				}
 				return Token(TOKEN_TYPE::Invalid);
@@ -355,10 +233,6 @@ namespace Jengine {
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i < token.value.f);
 					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
 				}
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
@@ -368,24 +242,6 @@ namespace Jengine {
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::IntegerLiteral, this->value.f < token.value.f);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-				}
-
-				if (this->type == TOKEN_TYPE::StringLiteral) {
-					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
 					}
 				}
 				return Token(TOKEN_TYPE::Invalid);
@@ -580,10 +436,6 @@ namespace Jengine {
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i / (int)token.value.f);
 					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
 				}
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
@@ -593,24 +445,6 @@ namespace Jengine {
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
 						return Token(TOKEN_TYPE::IntegerLiteral, this->value.f / (int)token.value.f);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-				}
-
-				if (this->type == TOKEN_TYPE::StringLiteral) {
-					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
-					}
-
-					if (token.type == TOKEN_TYPE::StringLiteral) {
-						return Token(TOKEN_TYPE::Invalid);
 					}
 				}
 				return Token(TOKEN_TYPE::Invalid);
@@ -624,10 +458,8 @@ namespace Jengine {
 				if (this->type == TOKEN_TYPE::RealLiteral) {
 					return Token(TOKEN_TYPE::RealLiteral, -this->value.f);
 				}
-
-				if (this->type == TOKEN_TYPE::StringLiteral) {
-					return Token(TOKEN_TYPE::Invalid);
-				}
+				
+				return Token(TOKEN_TYPE::Invalid);
 			}
 
 			std::string toString() {
