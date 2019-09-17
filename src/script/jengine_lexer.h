@@ -59,7 +59,7 @@ namespace Jengine {
 						  << '\n' << [&]{
 					std::string result;
 					int t = this->text.rfind('\n',this->position);
-					for (int i = t < 0 ? 0 : t; i--;) {
+					for (int i = t < 0 ? 0 : t; --i;) {
 						result += ' ';
 					}
 					return result + '^';}() << '\n'
@@ -145,7 +145,7 @@ namespace Jengine {
 						}
 					}
 
-					for (int i = ONE_TOKEN_SIZE; i--;) {
+					for (int i = ONE_TOKEN_SIZE; --i;) {
 						if (oneToken[i].tokenChar == this->currentCharacter) {
 							nextCharacter();
 							return {oneToken[i].type};
