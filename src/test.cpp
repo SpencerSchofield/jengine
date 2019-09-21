@@ -7,31 +7,81 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
-Test::Test() : Jengine::Application("Test", 1280, 720) {
+template<>
+void Jengine::Shader::setUniformMatrix<4,4>(std::string, unsigned int, float*);
 
+Test::Test() : Jengine::Application(
+		{"Test", 1280, 720, true, true, true, Jengine::Input::CURSOR_MODE::DISABLED}
+		) {
+	//glFrontFace(GL_CCW);
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 }
 
 bool Test::onStartup() {
+	testVertexArray();
+}
+
+bool Test::onShutdown()
+{
+	delete this->v;
+}
+
+bool Test::draw()
+{
+	glClear(GL_DEPTH_BUFFER_BIT);
+	renderer->drawTriangles(*this->v);
+}
+
+bool Test::update()
+{
+	glm::mat4 model(1.0f);
+	model = glm::translate(model, {0,0, -7.0f});
+	model = glm::rotate(model, angle, glm::normalize(glm::vec3{0.3f, 1.0f, 0}));
+	glm::mat4 view(1.0f);// = glm::lookAt(glm::vec3{4,3,3},glm::vec3{0,0,0},glm::vec3{0,1,0});
+	glm::mat4 perspective = glm::perspective(glm::radians(45.0f), this->renderer->aspectRatio(), 0.1f, 100.0f);
+	glm::mat4 mvp = perspective * view * model;
+	this->v->shader->setUniformMatrix<4,4>("mvp", 1, &mvp[0][0]);
+
+
+	if (this->input->keyState(JENGINE_KEY_ESCAPE) == Jengine::Input::PRESSED) {
+		this->finished = true;
+	}
+	angle += 0.1f;
+}
+
+void Test::testScript() {
+	Jengine::Script::Lexer lexer(Jengine::File::loadFileToString("../../res/scripts/ex1.jua"));
+	Jengine::Script::Parser parser(lexer);
+	Jengine::Script::Interpreter interpreter(parser);
+	Jengine::Script::Token token = interpreter.run();
+	std::cout << token.value.i << '\n';
+}
+
+void Test::testVertexArray() {
+
 	float pos[] = {
 
 		// back verticies
-		-1.0f, -1.0f, -1.0f,	//1.0f,1.0f,1.0f,1.0f,
-		1.0f, -1.0f, -1.0f,		//1.0f,0.0f,0.0f,1.0f,
-		1.0f, 1.0f, -1.0f,		//0.0f,1.0f,0.0f,1.0f,
-		-1.0f, 1.0f, -1.0f,		//0.0f,0.0f,1.0f,1.0f,
-								//
-		// front verticies		//
-		-1.0f, -1.0f, 1.0f,		//1.0f,1.0f,1.0f,1.0f,
-		1.0f, -1.0f, 1.0f,		//1.0f,0.0f,0.0f,1.0f,
-		1.0f, 1.0f, 1.0f,		//0.0f,1.0f,0.0f,1.0f,
-		-1.0f, 1.0f, 1.0f,		//0.0f,0.0f,1.0f,1.0f
+		-1.0f, -1.0f, -1.0f,	1.0f,1.0f,1.0f,1.0f,
+		1.0f, -1.0f, -1.0f,		1.0f,0.0f,0.0f,1.0f,
+		1.0f, 1.0f, -1.0f,		0.0f,1.0f,0.0f,1.0f,
+		-1.0f, 1.0f, -1.0f,		0.0f,0.0f,1.0f,1.0f,
+
+		// front verticies
+		-1.0f, -1.0f, 1.0f,		1.0f,1.0f,1.0f,1.0f,
+		1.0f, -1.0f, 1.0f,		1.0f,0.0f,0.0f,1.0f,
+		1.0f, 1.0f, 1.0f,		0.0f,1.0f,0.0f,1.0f,
+		-1.0f, 1.0f, 1.0f,		0.0f,0.0f,1.0f,1.0f
 	};
 
 	unsigned int index[] = {
 		// back face
 		0,1,2,
 		0,2,3,
-		/*
+
 		// front face
 		4,5,6,
 		4,6,7,
@@ -51,7 +101,6 @@ bool Test::onStartup() {
 		// bottom face
 		3,7,6,
 		3,6,2
-			*/
 	};
 
 	this->v = new Jengine::VertexArray(new Jengine::VertexBuffer(pos, sizeof(pos), Jengine::USE::STATIC_DRAW),
@@ -59,39 +108,10 @@ bool Test::onStartup() {
 									   new Jengine::Shader("../../res/shaders/shader.vert", "../../res/shaders/shader.frag"));
 
 	this->v->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 3);
-	//this->v->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 4);
+	this->v->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 4);
+	this->v->vertexBuffer->createAttributes();
 	(*this->v->vertexBuffer)[0].enable();
-	//(*this->v->vertexBuffer)[1].enable();
-	//glm::mat4 mvp(1.0f);
-	//glm::vec3 tmp(0.1f, 9.0f, 4.2f);
-	//tmp = glm::normalize(tmp);
-	//glm::mat4 model(1.0f);// = glm::rotate(45.0f, tmp);
-	//glm::mat4 view(1.0f);
-	//glm::mat4 perspective = glm::perspective(60.0f, this->renderer->aspectRatio(), 0.1f, 10.0f);
-	//mvp = model * view * perspective;
-	//this->v->shader->setUniformMatrix<4,4>("mvp", 1, &mvp[0][0]);
-	this->v->shader->setUniform("size", (float)this->renderer->width(), (float)this->renderer->height());
-	this->v->shader->setUniform("offset", -2.5f, 1.0f, -1.0f, 1.0f);
-	this->renderer->setClearColor(0, 0, 0, 1);
-	Jengine::Script::Lexer lexer(Jengine::File::loadFileToString("../../res/scripts/ex1.jua"));
-	Jengine::Script::Parser parser(lexer);
-	Jengine::Script::Interpreter interpreter(parser);
-	Jengine::Script::Token token = interpreter.run();
-	std::cout << token.value.i << '\n';
+	(*this->v->vertexBuffer)[1].enable();
 }
 
-bool Test::onShutdown()
-{
-	delete this->v;
-}
-
-bool Test::draw()
-{
-	renderer->drawTriangles(*this->v);
-}
-
-bool Test::update()
-{
-
-}
 

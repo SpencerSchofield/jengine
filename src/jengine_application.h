@@ -2,11 +2,23 @@
 #define JENGINE_APPLICATION_H
 
 #include "jengine_renderer.h"
+#include "input/jengine_input.h"
 
 namespace Jengine {
+
+	struct Application_Config {
+		const char* name;
+		int width;
+		int height;
+		bool vsync;
+		bool continuousEvents;
+		bool rawMotion;
+		Jengine::Input::CURSOR_MODE cursorMode;
+	};
+
 	class Application {
 	public:
-		Application(const char* name, int width, int height);
+		Application(Application_Config config);
 		virtual ~Application();
 
 		virtual bool onStartup() {return true;}
@@ -14,12 +26,16 @@ namespace Jengine {
 		virtual bool update() {return true;}
 		virtual bool draw() {return true;}
 
-		static Application& application() {return *latestApplication;}
+		double deltaTime();
+
+		static inline Application& application() {return *latestApplication;}
 		bool finished;
 		Jengine::Renderer* renderer;
+		Jengine::Input::Input* input;
 
 	private:
 		inline static Application* latestApplication;
+		Application_Config config;
 	};
 }
 

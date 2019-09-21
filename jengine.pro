@@ -4,6 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+	src/input/jengine_input.cpp \
+	src/input/jengine_keyboard.cpp \
+	src/input/jengine_mouse.cpp \
 	src/jengine_application.cpp \
 	src/jengine_entry.cpp \
 	src/jengine_file.cpp \
@@ -18,6 +21,9 @@ SOURCES += \
 	src/test.cpp
 
 HEADERS += \
+	src/input/jengine_input.h \
+	src/input/jengine_keyboard.h \
+	src/input/jengine_mouse.h \
 	src/jengine.h \
 	src/jengine_application.h \
 	src/jengine_file.h \

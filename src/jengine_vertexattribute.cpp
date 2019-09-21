@@ -10,11 +10,14 @@ namespace Jengine {
 								sizeof(int),sizeof(int),sizeof(float),
 							   2,3,4,sizeof(double)};
 		unsigned int typeSize = sizes[type-Jengine::ATTRIBUTE_TYPE::BYTE];
-		glVertexAttribPointer(index, count, type, GL_FALSE, typeSize*count, (const void*) offset);
+
 		if (size)
 			*size = typeSize*count;
 		this->enabled = false;
 		this->index = index;
+		this->count = count;
+		this->type = type;
+		this->offset = offset;
 	}
 
 	void VertexAttribute::enable() {
@@ -31,4 +34,8 @@ namespace Jengine {
 		this->enabled = false;
 	}
 
+
+	void VertexAttribute::createAttribute(unsigned int stride) {
+		glVertexAttribPointer(this->index, this->count, this->type, GL_FALSE, stride, (const void*) this->offset);
+	}
 }

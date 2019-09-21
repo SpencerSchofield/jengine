@@ -6,12 +6,16 @@
 
 namespace Jengine {
 
-	Renderer::Renderer(const char* name, int width, int height)
+	Renderer::Renderer(const char* name, int width, int height, bool vsync)
 	{
 		if (!glfwInit())
 				std::cout << "could not initialize glfw";
 		this->window = glfwCreateWindow(width, height, name, nullptr, nullptr);
 		glfwMakeContextCurrent(this->window);
+
+		// VSYNC
+		glfwSwapInterval(vsync ? 1 : 0);
+
 		if (glewInit() != GLEW_OK)
 			std::cout << "could not initialize glew";
 	}
@@ -44,6 +48,11 @@ namespace Jengine {
 		g = this->color.g;
 		b = this->color.b;
 		a = this->color.a;
+	}
+
+	bool Renderer::shouldClose()
+	{
+		return glfwWindowShouldClose(this->window);
 	}
 
 	void Renderer::drawTriangles(VertexArray& vertexArray)

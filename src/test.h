@@ -14,10 +14,21 @@ public:
 	bool draw() override;
 	bool update() override;
 
+
+	void testScript();
+	void testVertexArray();
+
 private:
 	Jengine::VertexArray* v;
+	float angle {0.0f};
 };
 
 Jengine::Application* jengine = new Test;
+
+/*
+ * glfwSetErrorCallback(void () int, const char*);
+ * Application::deltaTime();
+ *
+ */
 
 #endif // TEST_H

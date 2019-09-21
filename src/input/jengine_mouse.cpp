@@ -1,0 +1,45 @@
+#include "jengine_mouse.h"
+
+namespace Jengine {
+	namespace Input {
+
+		Mouse::Mouse(GLFWwindow* window)
+			: window(window){
+			glfwSetScrollCallback(this->window, scrollCallback);
+		}
+
+		void Mouse::setCursorMode(CURSOR_MODE mode) {
+			glfwSetInputMode(this->window, GLFW_CURSOR, (int)mode);
+		}
+
+		void Mouse::setRawMotion(bool raw) {
+			glfwSetInputMode(this->window, GLFW_RAW_MOUSE_MOTION, raw ? 1 : 0);
+		}
+
+		MousePosition Mouse::getMousePosition() {
+			MousePosition pos;
+			glfwGetCursorPos(this->window, &pos.x, &pos.y);
+			this->oPosition = pos;
+			return pos;
+		}
+
+		MousePosition Mouse::getRelativeMousePosition() {
+			MousePosition pos = oPosition;
+			glfwGetCursorPos(this->window, &this->oPosition.x, &this->oPosition.y);
+			return {this->oPosition.x - pos.x, this->oPosition.y - pos.y};
+		}
+
+		bool Mouse::mouseButtonClicked(int button) {
+			return glfwGetMouseButton(this->window, button) == GLFW_PRESS;
+		}
+
+		double Mouse::getMouseScroll() {
+			return xScrollRel;
+		}
+
+		void Mouse::scrollCallback(GLFWwindow* window, double xoff, double yoff) {
+			xScrollRel = yoff;
+		}
+
+	} // namespace Input
+} // namespace Jengine

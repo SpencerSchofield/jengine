@@ -36,5 +36,11 @@ namespace Jengine {
 		glBindBuffer(GL_ARRAY_BUFFER, this->glId);
 	}
 
+	void VertexBuffer::createAttributes() {
+		for (int i = 0; i < this->attributes.size(); i++) {
+			this->attributes[i].createAttribute(attributeOffset);
+		}
+	};
+
 }
 

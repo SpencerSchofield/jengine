@@ -12,12 +12,14 @@ namespace Jengine {
 	class Renderer
 	{
 	public:
-		Renderer(const char* name, int width, int height);
+		Renderer(const char* name, int width, int height, bool vsync);
 		virtual ~Renderer();
 		void startFrame();
 		void endFrame();
 		void setClearColor(float r, float g, float b, float a);
 		void clearColor(float& r, float& g, float& b, float& a);
+		bool shouldClose();
+		GLFWwindow* window;
 
 		void drawTriangles(VertexArray& vertexArray);
 
@@ -25,7 +27,6 @@ namespace Jengine {
 		int height();
 		float aspectRatio();
 	private:
-		GLFWwindow* window;
 		struct {float r,g,b,a;} color;
 	};
 

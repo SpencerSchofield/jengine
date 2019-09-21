@@ -23,10 +23,14 @@ namespace Jengine {
 		VertexAttribute(unsigned int index, unsigned int type, unsigned int count, unsigned int offset, unsigned int* const size = nullptr);
 		void enable();
 		void disable();
+		void createAttribute(unsigned int stride);
 
 	private:
 		bool enabled;
 		unsigned int index;
+		unsigned int count;
+		unsigned int type;
+		unsigned int offset;
 	};
 }
 

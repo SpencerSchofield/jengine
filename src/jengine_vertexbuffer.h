@@ -33,6 +33,8 @@ namespace Jengine {
 
 		VertexAttribute& attribute(int index);
 
+		void createAttributes();
+
 	private:
 
 		void onBind() override;
