@@ -7,8 +7,13 @@
 // debug
 #include <iostream>
 
-#define isdigit(x) (x) >= '0' && (x) <= '9'
-#define isalnum(x) isdigit(x) || (x) >= 'A' && (x) <= 'Z' || (x) >= 'a' && (x) <= 'z'
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wparentheses"
+
+#define isdigit(x) ((x) >= '0' && (x) <= '9')
+#define isalnum(x) (isdigit(x) || ((x) >= 'A' && (x) <= 'Z') || ((x) >= 'a' && (x) <= 'z'))
+
+#pragma GCC diagnostic pop
 
 namespace Jengine {
 	namespace Script {
@@ -47,19 +52,19 @@ namespace Jengine {
 					nextCharacter();
 			}
 
-			void error(const std::string& msg = "") {
-				int t1 = this->text.rfind('\n',this->position);
-				int t2 = this->text.find('\n',this->position);
-				t1<0?t1=0:0;
-				t2<0?t2=this->text.length():0;
+			[[noreturn]] void error(const std::string& msg = "") {
+				unsigned long t1 = this->text.rfind('\n',this->position);
+				unsigned long t2 = this->text.find('\n',this->position);
+				t1 == std::string::npos ? t1 = 0 : 0;
+				t2 == std::string::npos ? t2 = this->text.length() : 0;
 				std::cout << "Lexer error: character (" << this->currentCharacter << "):"
-						  << (int)this->currentCharacter << ':'
+						  << static_cast<int>(this->currentCharacter) << ':'
 						  << msg << '\n'
-						  << this->text.substr(t1,t2-t1)
+						  << this->text.substr(t1, t2-t1)
 						  << '\n' << [&]{
 					std::string result;
-					int t = this->text.rfind('\n',this->position);
-					for (int i = t < 0 ? 0 : t; --i;) {
+					unsigned long t = this->text.rfind('\n',this->position);
+					for (unsigned long i = t == std::string::npos ? 0 : t; --i;) {
 						result += ' ';
 					}
 					return result + '^';}() << '\n'
@@ -198,7 +203,7 @@ namespace Jengine {
 			};
 
 			std::string text;
-			int position;
+			unsigned int position;
 			char currentCharacter;
 
 			std::unordered_map<std::string, TOKEN_TYPE> keywords;

@@ -47,7 +47,7 @@ namespace Jengine {
 		glDeleteProgram(this->glId);
 	}
 
-	void Shader::onBind() {
+	void Shader::bind() {
 		glUseProgram(this->glId);
 	}
 

@@ -2,7 +2,6 @@
 #define VERTEXARRAY_H
 
 #include <GL/glew.h>
-#include "jengine_globject.h"
 #include "jengine_vertexbuffer.h"
 #include "jengine_vertexattribute.h"
 #include "jengine_indexbuffer.h"
@@ -10,18 +9,19 @@
 
 namespace Jengine {
 
-	class VertexArray : public GLObject
+	class VertexArray
 	{
 	public:
-		VertexArray(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, Shader* shader);
-		~VertexArray() override;
+		VertexArray(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
+		~VertexArray();
 
 		VertexBuffer* const vertexBuffer;
 		IndexBuffer* const indexBuffer;
-		Shader* const shader;
+
+		void bind();
 
 	private:
-		void onBind() override;
+		unsigned int glId;
 	};
 
 } // namespace Jengine

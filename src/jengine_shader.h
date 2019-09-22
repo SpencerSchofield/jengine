@@ -1,17 +1,16 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "jengine_globject.h"
 #include <unordered_map>
 #include <string>
 
 namespace Jengine {
 
-	class Shader : public GLObject
+	class Shader
 	{
 	public:
 		Shader(const char* vertex, const char* fragment);
-		~Shader() override;
+		~Shader();
 
 		void setUniform(std::string name, float a);
 		void setUniform(std::string name, int a);
@@ -31,8 +30,11 @@ namespace Jengine {
 		template <int, int>
 		void setUniformMatrix(std::string name, unsigned int count, float* data);
 
+		void bind();
+
 	private:
-		void onBind() override;
+
+		unsigned int glId;
 
 		inline int getLocation(std::string name);
 

@@ -14,7 +14,7 @@ namespace Jengine {
 				: lexer(lexer), currentToken(this->lexer.nextToken()), previous(AST_TYPE::Empty) {
 			}
 
-			void error(const std::string& msg = "") {
+			[[noreturn]] void error(const std::string& msg = "") {
 				std::cout << "Syntax error: Current Token (" << this->currentToken.toString() << ")\n" << msg << '\n';
 				exit(-1);
 			}
@@ -64,12 +64,12 @@ namespace Jengine {
 
 			// may not be needed
 			AST* numberIdentifier() {
-
+				return nullptr;
 			}
 
 			// may not be needed
 			AST* stringIdentifier() {
-
+				return nullptr;
 			}
 
 			AST_StatementList* compoundStatement() {
@@ -293,7 +293,7 @@ namespace Jengine {
 			}
 
 			AST* index() {
-
+				return nullptr;
 			}
 
 

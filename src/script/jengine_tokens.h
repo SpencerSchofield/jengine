@@ -8,7 +8,7 @@
 namespace Jengine {
 	namespace Script {
 
-		enum class TOKEN_TYPE {
+		enum class TOKEN_TYPE : short {
 			Function,
 			While,
 			If,
@@ -180,7 +180,7 @@ namespace Jengine {
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
 					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::RealLiteral, this->value.f / (float)token.value.i);
+						return Token(TOKEN_TYPE::RealLiteral, this->value.f / static_cast<float>(token.value.i));
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
@@ -254,7 +254,7 @@ namespace Jengine {
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, realEquals(this->value.i, token.value.f));
+						return Token(TOKEN_TYPE::IntegerLiteral, realEquals(this->value.i, static_cast<double>(token.value.f)));
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
@@ -264,11 +264,11 @@ namespace Jengine {
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
 					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, realEquals(this->value.f, token.value.i));
+						return Token(TOKEN_TYPE::IntegerLiteral, realEquals(static_cast<double>(this->value.f), token.value.i));
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, realEquals(this->value.f, token.value.f));
+						return Token(TOKEN_TYPE::IntegerLiteral, realEquals(static_cast<double>(this->value.f), static_cast<double>(token.value.f)));
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
@@ -299,7 +299,7 @@ namespace Jengine {
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(this->value.i, token.value.f));
+						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(this->value.i, static_cast<double>(token.value.f)));
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
@@ -309,11 +309,11 @@ namespace Jengine {
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
 					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(this->value.f, token.value.i));
+						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(static_cast<double>(this->value.f), token.value.i));
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(this->value.f, token.value.f));
+						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(static_cast<double>(this->value.f), static_cast<double>(token.value.f)));
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
@@ -344,7 +344,7 @@ namespace Jengine {
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i && !realEquals(token.value.f, 0));
+						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i && !realEquals(static_cast<double>(token.value.f), 0));
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
@@ -354,11 +354,11 @@ namespace Jengine {
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
 					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(this->value.f, 0) && token.value.i);
+						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(static_cast<double>(this->value.f), 0) && token.value.i);
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(this->value.f, 0) && !realEquals(token.value.f, 0));
+						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(static_cast<double>(this->value.f), 0) && !realEquals(static_cast<double>(token.value.f), 0));
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
@@ -389,7 +389,7 @@ namespace Jengine {
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i || !realEquals(token.value.f, 0));
+						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i || !realEquals(static_cast<double>(token.value.f), 0));
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
@@ -399,11 +399,11 @@ namespace Jengine {
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
 					if (token.type == TOKEN_TYPE::IntegerLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(this->value.f, 0) || token.value.i);
+						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(static_cast<double>(this->value.f), 0) || token.value.i);
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(this->value.f, 0) || !realEquals(token.value.f, 0));
+						return Token(TOKEN_TYPE::IntegerLiteral, !realEquals(static_cast<double>(this->value.f), 0) || !realEquals(static_cast<double>(token.value.f), 0));
 					}
 
 					if (token.type == TOKEN_TYPE::StringLiteral) {
@@ -434,7 +434,7 @@ namespace Jengine {
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i / (int)token.value.f);
+						return Token(TOKEN_TYPE::IntegerLiteral, this->value.i / static_cast<int>(token.value.f));
 					}
 				}
 
@@ -444,7 +444,7 @@ namespace Jengine {
 					}
 
 					if (token.type == TOKEN_TYPE::RealLiteral) {
-						return Token(TOKEN_TYPE::IntegerLiteral, this->value.f / (int)token.value.f);
+						return Token(TOKEN_TYPE::IntegerLiteral, this->value.f / static_cast<int>(token.value.f));
 					}
 				}
 				return Token(TOKEN_TYPE::Invalid);
@@ -511,8 +511,8 @@ namespace Jengine {
 										('"' + this->value.s + '"') :
 										"__NO_VALUE__";
 
-				return '<' + ((int)this->type >= 0 && this->type <= TOKEN_TYPE::Invalid ?
-						t[(int)this->type] : "UNKNOWN_TYPE") + ">:{" + value + '}';
+				return '<' + (static_cast<int>(this->type) >= 0 && this->type <= TOKEN_TYPE::Invalid ?
+						t[static_cast<int>(this->type)] : "UNKNOWN_TYPE") + ">:{" + value + '}';
 			}
 
 			operator bool() {
@@ -521,12 +521,14 @@ namespace Jengine {
 				}
 
 				if (this->type == TOKEN_TYPE::RealLiteral) {
-					return !realEquals(this->value.f, 0);
+					return !realEquals(static_cast<double>(this->value.f), 0);
 				}
 
 				if (this->type == TOKEN_TYPE::StringLiteral) {
 					return this->value.s == "";
 				}
+
+				return false;
 			}
 
 			TOKEN_TYPE type;

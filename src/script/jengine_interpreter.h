@@ -19,8 +19,8 @@ namespace Jengine {
 			}
 
 			Token visitBinaryOperation(AST* node) {
-				Token left = visit(((AST_BinaryOperation*)node)->left);
-				Token right = visit(((AST_BinaryOperation*)node)->right);
+				Token left = visit(static_cast<AST_BinaryOperation*>(node)->left);
+				Token right = visit(static_cast<AST_BinaryOperation*>(node)->right);
 
 				if (node->token.type == TOKEN_TYPE::Plus) {
 					return left + right;
@@ -58,59 +58,61 @@ namespace Jengine {
 				if (node->token.type == TOKEN_TYPE::Or) {
 					return left || right;
 				}
+				return Token();
 			}
 
 			Token visitUnaryOperation(AST* node) {
-				Token value = visit(((AST_UnaryOperation*)node)->value);
+				Token value = visit(static_cast<AST_UnaryOperation*>(node)->value);
 				if (node->token.type == TOKEN_TYPE::Plus) {
 					return value;
 				}
 				if (node->token.type == TOKEN_TYPE::Minus) {
 					return -value;
 				}
+				return Token();
 			}
 
 			Token visitCompoundStatement(AST* node) {
 				Token result(TOKEN_TYPE::Invalid);
-				AST_StatementList* theList = (AST_StatementList*)node;
-				for (int i = 0; i < theList->statements.size(); ++i) {
+				AST_StatementList* theList = static_cast<AST_StatementList*>(node);
+				for (unsigned int i = 0; i < theList->statements.size(); ++i) {
 					result = visit(theList->statements[i]);
 				}
 				return result;
 			}
 
 			Token visitAssignmentStatement(AST* node) {
-				Token value = visit(((AST_AssignmentStatement*)node)->value);
-				memory[((AST_AssignmentStatement*)node)->token.value.s] = value;
+				Token value = visit(static_cast<AST_AssignmentStatement*>(node)->value);
+				memory[static_cast<AST_AssignmentStatement*>(node)->token.value.s] = value;
 				return value;
 			}
 
 			Token visitWhileStatement(AST* node) {
 				Token result;
-				while (visit(((AST_IfStatement*)node)->condition)) {
-					result = visit(((AST_IfStatement*)node)->statement);
+				while (visit(static_cast<AST_IfStatement*>(node)->condition)) {
+					result = visit(static_cast<AST_IfStatement*>(node)->statement);
 				}
 				return result;
 			}
 
 			Token visitIfStatement(AST* node) {
-				if (visit(((AST_IfStatement*)node)->condition)) {
-					return visit(((AST_IfStatement*)node)->statement);
+				if (visit(static_cast<AST_IfStatement*>(node)->condition)) {
+					return visit(static_cast<AST_IfStatement*>(node)->statement);
 				}
-				if (((AST_IfStatement*)node)->elseStatement != nullptr) {
-					return visit(((AST_IfStatement*)node)->elseStatement);
+				if (static_cast<AST_IfStatement*>(node)->elseStatement != nullptr) {
+					return visit(static_cast<AST_IfStatement*>(node)->elseStatement);
 				}
 				return {TOKEN_TYPE::Invalid};
 			}
 
 			Token visitFunctionDeclaration(AST* node) {
-				AST_FunctionDeclaration* t = (AST_FunctionDeclaration*)node;
+				AST_FunctionDeclaration* t = static_cast<AST_FunctionDeclaration*>(node);
 				functions[t->token.value.s] = t;
 				return {TOKEN_TYPE::Invalid};
 			}
 
-			Token visitFunctionCall(AST* node) {
-
+			Token visitFunctionCall([[maybe_unused]] AST* node) {
+				return Token();
 			}
 
 			Token visitVariable(AST* node) {
@@ -120,10 +122,12 @@ namespace Jengine {
 				return node->token;
 			}
 
-			Token visitTokenList(AST* node) {
+			Token visitTokenList([[maybe_unused]] AST* node) {
+				return Token();
 			}
 
-			Token visitEmpty(AST* node) {
+			Token visitEmpty([[maybe_unused]] AST* node) {
+				return Token();
 			}
 
 			Token visit(AST* node) {
@@ -160,6 +164,7 @@ namespace Jengine {
 				if (node->type == AST_TYPE::Empty) {
 					return visitEmpty(node);
 				}
+				return Token();
 			}
 
 			Token run() {

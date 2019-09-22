@@ -55,10 +55,11 @@ namespace Jengine {
 		return glfwWindowShouldClose(this->window);
 	}
 
-	void Renderer::drawTriangles(VertexArray& vertexArray)
+	void Renderer::drawTriangles(VertexArray& vertexArray, Shader& shader)
 	{
+		shader.bind();
 		vertexArray.bind();
-		glDrawElements(GL_TRIANGLES, vertexArray.indexBuffer->getCount(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, static_cast<int>(vertexArray.indexBuffer->getCount()), GL_UNSIGNED_INT, nullptr);
 	}
 
 	int Renderer::width()
@@ -78,7 +79,7 @@ namespace Jengine {
 	float Renderer::aspectRatio() {
 		int width, height;
 		glfwGetWindowSize(this->window, &width, &height);
-		return width / (float) height;
+		return width / static_cast<float>(height);
 	}
 
 } // namespace Jengine

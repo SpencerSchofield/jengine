@@ -21,7 +21,7 @@ namespace Jengine {
 		bool shouldClose();
 		GLFWwindow* window;
 
-		void drawTriangles(VertexArray& vertexArray);
+		void drawTriangles(VertexArray& vertexArray, Shader& shader);
 
 		int width();
 		int height();

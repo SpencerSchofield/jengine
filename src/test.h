@@ -3,6 +3,7 @@
 
 #include "jengine.h"
 
+extern Jengine::Application* jengine;
 
 class Test : public Jengine::Application
 {
@@ -20,14 +21,17 @@ public:
 
 private:
 	Jengine::VertexArray* v;
+	Jengine::Shader* shader;
 	float angle {0.0f};
+	Jengine::Input::MousePosition x;
+	double px {0};
+	double py {0};
 };
 
 Jengine::Application* jengine = new Test;
 
 /*
  * glfwSetErrorCallback(void () int, const char*);
- * Application::deltaTime();
  *
  */
 
