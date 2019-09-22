@@ -2,6 +2,8 @@
 
 namespace Jengine {
 
+	Application* Application::latestApplication;
+
 	Application::Application(Application_Config config)
 		: config(config) {
 		latestApplication = this;
@@ -24,6 +26,10 @@ namespace Jengine {
 
 	Application::~Application() {
 		delete this->renderer;
+	}
+
+	double Application::deltaTime() {
+		return (this->currTime - this->prevTime);
 	}
 
 }

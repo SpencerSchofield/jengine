@@ -1,20 +1,20 @@
 #ifndef INDEXBUFFER_H
 #define INDEXBUFFER_H
 
-#include "jengine_globject.h"
-
 namespace Jengine {
 
-	class IndexBuffer : public GLObject
+	class IndexBuffer
 	{
 	public:
-		IndexBuffer(const unsigned int* data, unsigned int count);
+		IndexBuffer(const unsigned int* data, unsigned long count);
 
-		unsigned int getCount();
+		unsigned long getCount();
+
+		void bind();
 
 	private:
-		void onBind() override;
-		unsigned int count;
+		unsigned int glId;
+		unsigned long count;
 	};
 
 } // namespace Jengine

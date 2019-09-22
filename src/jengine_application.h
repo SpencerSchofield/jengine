@@ -33,8 +33,11 @@ namespace Jengine {
 		Jengine::Renderer* renderer;
 		Jengine::Input::Input* input;
 
+		double prevTime {0};
+		double currTime;
+
 	private:
-		inline static Application* latestApplication;
+		static Application* latestApplication;
 		Application_Config config;
 	};
 }

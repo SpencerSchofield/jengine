@@ -130,18 +130,12 @@
 namespace Jengine {
 	namespace Input {
 
-		enum KEY_STATE {
-			PRESSED = GLFW_PRESS,
-			RELEASED = GLFW_RELEASE,
-			REPEAT = GLFW_REPEAT
-		};
-
 		class Keyboard
 		{
 		public:
 			Keyboard(GLFWwindow* window);
 
-			KEY_STATE keyState(int key);
+			bool keyPressed(int key);
 			std::string keyName(int key);
 
 		private:

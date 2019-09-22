@@ -1,5 +1,5 @@
 TEMPLATE = app
-CONFIG += console c++11
+CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
 
@@ -10,8 +10,8 @@ SOURCES += \
 	src/jengine_application.cpp \
 	src/jengine_entry.cpp \
 	src/jengine_file.cpp \
-	src/jengine_globject.cpp \
 	src/jengine_indexbuffer.cpp \
+	src/jengine_model.cpp \
 	src/jengine_renderer.cpp \
 	src/jengine_script.cpp \
 	src/jengine_shader.cpp \
@@ -29,6 +29,7 @@ HEADERS += \
 	src/jengine_file.h \
 	src/jengine_globject.h \
 	src/jengine_indexbuffer.h \
+	src/jengine_model.h \
 	src/jengine_renderer.h \
 	src/jengine_script.h \
 	src/jengine_shader.h \
@@ -49,6 +50,8 @@ LIBS += \
 	-lglfw
 
 DISTFILES += \
+	res/models/cube.mtl \
+	res/models/cube.obj \
 	res/scripts/ex1.jua \
 	res/shaders/shader.frag \
 	res/shaders/shader.vert

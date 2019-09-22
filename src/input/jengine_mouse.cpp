@@ -3,13 +3,15 @@
 namespace Jengine {
 	namespace Input {
 
+		double Mouse::xScrollRel {0};
+
 		Mouse::Mouse(GLFWwindow* window)
 			: window(window){
 			glfwSetScrollCallback(this->window, scrollCallback);
 		}
 
 		void Mouse::setCursorMode(CURSOR_MODE mode) {
-			glfwSetInputMode(this->window, GLFW_CURSOR, (int)mode);
+			glfwSetInputMode(this->window, GLFW_CURSOR, static_cast<int>(mode));
 		}
 
 		void Mouse::setRawMotion(bool raw) {
@@ -37,7 +39,7 @@ namespace Jengine {
 			return xScrollRel;
 		}
 
-		void Mouse::scrollCallback(GLFWwindow* window, double xoff, double yoff) {
+		void Mouse::scrollCallback([[gnu::unused]] GLFWwindow* window, [[gnu::unused]] double xoff, double yoff) {
 			xScrollRel = yoff;
 		}
 

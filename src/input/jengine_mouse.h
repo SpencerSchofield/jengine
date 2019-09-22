@@ -46,8 +46,8 @@ namespace Jengine {
 			static void scrollCallback(GLFWwindow* window, double xoff, double yoff);
 			GLFWwindow* window;
 			MousePosition oPosition {0, 0};
-			inline static double xScrollRel {0};
-			inline static GLFWwindow* windowScroll;
+			static double xScrollRel;
+			static GLFWwindow* windowScroll;
 		};
 
 	} // namespace Input

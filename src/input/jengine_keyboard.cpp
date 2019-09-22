@@ -7,8 +7,8 @@ namespace Jengine {
 			: window(window) {
 		}
 
-		KEY_STATE Keyboard::keyState(int key) {
-			return (KEY_STATE)glfwGetKey(this->window, key);
+		bool Keyboard::keyPressed(int key) {
+			return glfwGetKey(this->window, key);
 		}
 
 		std::string Keyboard::keyName(int key) {
