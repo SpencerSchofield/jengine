@@ -21,7 +21,9 @@ Test::Test() : Jengine::Application(
 }
 
 bool Test::onStartup() {
-	testVertexArray();
+	testModelLoading();
+	this->chosen = const_cast<Jengine::VertexArray*>(this->model->vertexArray);
+	//testVertexArray();
 	return true;
 }
 
@@ -32,7 +34,7 @@ bool Test::onShutdown() {
 
 bool Test::draw() {
 	glClear(GL_DEPTH_BUFFER_BIT);
-	renderer->drawTriangles(*this->v, *this->shader);
+	renderer->drawTriangles(*this->chosen, *this->shader);
 	return true;
 }
 
@@ -66,7 +68,12 @@ bool Test::update()
 
 	if (this->input->keyPressed(JENGINE_KEY_LEFT_SHIFT)) {
 		if (this->input->keyPressed(JENGINE_KEY_Q)) {
-			this->finished = true;
+			testModelLoading();
+			this->chosen = const_cast<Jengine::VertexArray*>(this->model->vertexArray);
+		}
+		if (this->input->keyPressed(JENGINE_KEY_E)) {
+			testVertexArray();
+			this->chosen = const_cast<Jengine::VertexArray*>(this->v);
 		}
 	}
 
@@ -146,4 +153,10 @@ void Test::testVertexArray() {
 	(*this->v->vertexBuffer)[1].enable();
 }
 
-
+void Test::testModelLoading() {
+	this->model = Jengine::Model::loadOBJ("../../res/models/teapot.obj");
+	this->shader = new Jengine::Shader("../../res/shaders/shader.vert", "../../res/shaders/shader.frag");
+	this->model->vertexArray->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 3);
+	this->model->vertexArray->vertexBuffer->createAttributes();
+	(*this->model->vertexArray->vertexBuffer)[0].enable();
+}

@@ -2,6 +2,10 @@
 
 #include "jengine_file.h"
 
+#ifdef JENGINE_DEBUG
+#include <iostream>
+#endif
+
 namespace Jengine {
 
 	Model::Model(VertexArray* vertexArray)
@@ -9,12 +13,14 @@ namespace Jengine {
 
 	}
 
-	Model Model::loadOBJ(const std::string& fileName) {
+	Model* Model::loadOBJ(const std::string& fileName) {
 		std::vector<float> positionData;
 		std::vector<float> vt;
 		std::vector<float> normalData;
-		std::vector<unsigned int> indexData;
-		std::vector<std::string> file = File::splitByDelimeter(File::loadFileToString(fileName), "\n");
+		std::vector<unsigned int> positionIndex;
+		std::vector<unsigned int> vtIndex;
+		std::vector<unsigned int> normalIndex;
+		std::vector<std::string> file = File::splitByDelimeter(File::loadFileToString(fileName), '\n');
 		unsigned long found;
 		unsigned long ofound;
 		unsigned long slashFound;
@@ -23,6 +29,13 @@ namespace Jengine {
 		//std::vector<float> tmpF;
 		//std::vector<unsigned int> tmpI;
 		for (unsigned int i = 0; i < file.size(); ++i) {
+
+		#ifdef JENGINE_DEBUG
+		if (!(i % 100000)) {
+			std::cout << i << '/' << file.size() << '\n';
+		}
+		#endif
+
 			switch (file[i][0]) {
 				case 'v':
 					switch (file[i][1]) {
@@ -61,20 +74,20 @@ namespace Jengine {
 						oslashFound = ofound;
 						found = file[i].find(' ', ofound);
 						slashFound = file[i].find('/', oslashFound);
-						indexData.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound))));
+						positionIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
 						oslashFound = slashFound + 1;
 						slashFound = file[i].find('/', oslashFound);
-						indexData.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound))));
+						vtIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
 						oslashFound = slashFound + 1;
-						indexData.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound))));
+						normalIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound)))-1);
 						ofound = found + 1;
 					}
 				break;
 			}
 		}
-		return Model(new VertexArray(
+		return new Model(new VertexArray(
 					new VertexBuffer(&positionData[0], positionData.size() * sizeof(float), USE::STATIC_DRAW),
-					 new IndexBuffer(&indexData[0], indexData.size())));
+					 new IndexBuffer(&positionIndex[0], positionIndex.size())));
 	}
 
 } // namespace Jengine

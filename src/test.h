@@ -18,10 +18,13 @@ public:
 
 	void testScript();
 	void testVertexArray();
+	void testModelLoading();
 
 private:
 	Jengine::VertexArray* v;
+	Jengine::VertexArray* chosen;
 	Jengine::Shader* shader;
+	Jengine::Model* model;
 	float angle {0.0f};
 	Jengine::Input::MousePosition x;
 	double px {0};

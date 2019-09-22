@@ -55,3 +55,7 @@ DISTFILES += \
 	res/scripts/ex1.jua \
 	res/shaders/shader.frag \
 	res/shaders/shader.vert
+
+QMAKE_CXXFLAGS_DEBUG += -DJENGINE_DEBUG
+
+QMAKE_CXXFLAGS_RELEASE += -DJENGINE_RELEASE

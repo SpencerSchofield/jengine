@@ -10,10 +10,12 @@ namespace Jengine {
 	public:
 		Model(VertexArray* vertexArray);
 
-		static Model loadOBJ(const std::string& fileName);
+		static Model* loadOBJ(const std::string& fileName);
+
+		const VertexArray* vertexArray;
 
 	private:
-		VertexArray* vertexArray;
+
 	};
 
 } // namespace Jengine

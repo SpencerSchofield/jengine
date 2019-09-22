@@ -18,7 +18,9 @@ namespace Jengine {
 
 	void VertexBuffer::addAttribute(unsigned int type, unsigned int count) {
 		unsigned int size;
-		this->attributes.emplace_back(VertexAttribute(static_cast<unsigned int>(this->attributes.size()), type, count, this->attributeOffset, &size));
+		this->attributes.emplace_back(
+					VertexAttribute(static_cast<unsigned int>(this->attributes.size()),
+									type, count, this->attributeOffset, &size));
 		this->attributeOffset += size;
 	}
 
@@ -40,8 +42,5 @@ namespace Jengine {
 			this->attributes[i].createAttribute(attributeOffset);
 		}
 	}
-
-
-
 }
 
