@@ -32,6 +32,7 @@ HEADERS += \
 	src/jengine_file.h \
 	src/jengine_globject.h \
 	src/jengine_indexbuffer.h \
+	src/jengine_logging.h \
 	src/jengine_model.h \
 	src/jengine_renderer.h \
 	src/jengine_script.h \
