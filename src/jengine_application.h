@@ -20,13 +20,10 @@ namespace Jengine {
 	public:
 		Application(Application_Config config);
 		virtual ~Application();
-
-		virtual bool onStartup() {return true;}
-		virtual bool onShutdown() {return true;}
 		virtual bool update() {return true;}
 		virtual bool draw() {return true;}
 
-		double deltaTime();
+		double deltaTime() const;
 
 		static inline Application& application() {return *latestApplication;}
 		bool finished;

@@ -3,6 +3,7 @@
 
 #include "jengine_parser.h"
 #include "jengine_symbol.h"
+#include "../jengine_define.h"
 
 namespace Jengine {
 	namespace Script {
@@ -111,7 +112,7 @@ namespace Jengine {
 				return {TOKEN_TYPE::Invalid};
 			}
 
-			Token visitFunctionCall([[maybe_unused]] AST* node) {
+			Token visitFunctionCall(UNIMPLEMENTED AST* node) {
 				return Token();
 			}
 
@@ -122,11 +123,11 @@ namespace Jengine {
 				return node->token;
 			}
 
-			Token visitTokenList([[maybe_unused]] AST* node) {
+			Token visitTokenList(UNIMPLEMENTED AST* node) {
 				return Token();
 			}
 
-			Token visitEmpty([[maybe_unused]] AST* node) {
+			Token visitEmpty(UNIMPLEMENTED AST* node) {
 				return Token();
 			}
 

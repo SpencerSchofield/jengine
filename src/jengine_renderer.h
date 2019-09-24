@@ -14,18 +14,18 @@ namespace Jengine {
 	public:
 		Renderer(const char* name, int width, int height, bool vsync);
 		virtual ~Renderer();
-		void startFrame();
-		void endFrame();
+		void startFrame() const;
+		void endFrame() const;
 		void setClearColor(float r, float g, float b, float a);
-		void clearColor(float& r, float& g, float& b, float& a);
-		bool shouldClose();
+		void clearColor(float& r, float& g, float& b, float& a) const;
+		bool shouldClose() const;
 		GLFWwindow* window;
 
-		void drawTriangles(VertexArray& vertexArray, Shader& shader);
+		void drawTriangles(VertexArray& vertexArray, Shader& shader) const;
 
-		int width();
-		int height();
-		float aspectRatio();
+		int width() const;
+		int height() const;
+		float aspectRatio() const;
 	private:
 		struct {float r,g,b,a;} color;
 	};

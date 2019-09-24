@@ -5,7 +5,6 @@
 #include "jengine_vertexbuffer.h"
 #include "jengine_vertexattribute.h"
 #include "jengine_indexbuffer.h"
-#include "jengine_shader.h"
 
 namespace Jengine {
 
@@ -18,7 +17,7 @@ namespace Jengine {
 		VertexBuffer* const vertexBuffer;
 		IndexBuffer* const indexBuffer;
 
-		void bind();
+		void bind() const;
 
 	private:
 		unsigned int glId;

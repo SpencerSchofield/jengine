@@ -8,6 +8,7 @@ SOURCES += \
 	src/input/jengine_keyboard.cpp \
 	src/input/jengine_mouse.cpp \
 	src/jengine_application.cpp \
+	src/jengine_camera.cpp \
 	src/jengine_entry.cpp \
 	src/jengine_file.cpp \
 	src/jengine_indexbuffer.cpp \
@@ -26,6 +27,8 @@ HEADERS += \
 	src/input/jengine_mouse.h \
 	src/jengine.h \
 	src/jengine_application.h \
+	src/jengine_camera.h \
+	src/jengine_define.h \
 	src/jengine_file.h \
 	src/jengine_globject.h \
 	src/jengine_indexbuffer.h \
@@ -56,6 +59,17 @@ DISTFILES += \
 	res/shaders/shader.frag \
 	res/shaders/shader.vert
 
+CONFIG += precompile_header
+PRECOMPILED_HEADER = src/pch.h
+HEADERS += src/pch.h
+
+
 QMAKE_CXXFLAGS_DEBUG += -DJENGINE_DEBUG
 
 QMAKE_CXXFLAGS_RELEASE += -DJENGINE_RELEASE
+QMAKE_CXXFLAGS_RELEASE -= -O
+QMAKE_CXXFLAGS_RELEASE -= -O1
+QMAKE_CXXFLAGS_RELEASE -= -O2
+QMAKE_CXXFLAGS_RELEASE *= -O3
+
+QMAKE_CXXFLAGS += -Werror

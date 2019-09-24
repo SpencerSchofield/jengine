@@ -1,3 +1,4 @@
+#include "../pch.h"
 #include "jengine_input.h"
 
 namespace Jengine {
@@ -7,7 +8,7 @@ namespace Jengine {
 			: Keyboard(window), Mouse(window), inputFunc(f) {
 		}
 
-		void Input::getEvents() {
+		void Input::getEvents() const {
 			(*inputFunc)();
 		}
 

@@ -135,8 +135,8 @@ namespace Jengine {
 		public:
 			Keyboard(GLFWwindow* window);
 
-			bool keyPressed(int key);
-			std::string keyName(int key);
+			bool keyPressed(int key) const;
+			std::string keyName(int key) const;
 
 		private:
 			GLFWwindow* window;

@@ -17,7 +17,7 @@ namespace Jengine {
 		glDeleteVertexArrays(1, &this->glId);
 	}
 
-	void VertexArray::bind() {
+	void VertexArray::bind() const {
 		glBindVertexArray(this->glId);
 		this->vertexBuffer->bind();
 		this->indexBuffer->bind();

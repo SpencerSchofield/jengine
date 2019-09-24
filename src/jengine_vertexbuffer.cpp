@@ -25,7 +25,7 @@ namespace Jengine {
 	}
 
 
-	VertexAttribute& VertexBuffer::operator[](unsigned long index){
+	VertexAttribute& VertexBuffer::operator[](unsigned long index) {
 		return this->attributes[index];
 	}
 
@@ -33,7 +33,7 @@ namespace Jengine {
 		return this->attributes[index];
 	}
 
-	void VertexBuffer::bind() {
+	void VertexBuffer::bind() const {
 		glBindBuffer(GL_ARRAY_BUFFER, this->glId);
 	}
 

@@ -72,3 +72,5 @@ Thumbs.db
 *.exe
 /bin/Desktop-Debug/.qmake.stash
 /bin/Desktop-Debug/jengine
+/bin/
+*.mtl

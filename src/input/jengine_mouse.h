@@ -34,13 +34,13 @@ namespace Jengine {
 		class Mouse {
 		public:
 			Mouse(GLFWwindow* window);
-			void setCursorMode(CURSOR_MODE mode);
-			void setRawMotion(bool raw);
+			void setCursorMode(CURSOR_MODE mode) const;
+			void setRawMotion(bool raw) const;
 			MousePosition getMousePosition();
 			MousePosition getRelativeMousePosition();
-			bool mouseButtonClicked(int button);
+			bool mouseButtonClicked(int button) const;
 			// Only works with vertical scroll currently
-			double getMouseScroll();
+			double getMouseScroll() const;
 
 		private:
 			static void scrollCallback(GLFWwindow* window, double xoff, double yoff);

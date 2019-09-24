@@ -18,18 +18,13 @@ Test::Test() : Jengine::Application(
 	glCullFace(GL_BACK);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-}
-
-bool Test::onStartup() {
 	testModelLoading();
 	this->chosen = const_cast<Jengine::VertexArray*>(this->model->vertexArray);
 	//testVertexArray();
-	return true;
 }
 
-bool Test::onShutdown() {
+Test::~Test() {
 	delete this->v;
-	return true;
 }
 
 bool Test::draw() {
@@ -40,29 +35,26 @@ bool Test::draw() {
 
 bool Test::update()
 {
+	double px {0};
+	double py {0};
+	double speed = 10;
 	if (this->input->keyPressed(JENGINE_KEY_W)) {
-		px += this->deltaTime() * 10;
+		px += this->deltaTime() * speed;
 	}
 	if (this->input->keyPressed(JENGINE_KEY_S)) {
-		px -= this->deltaTime() * 10;
+		px -= this->deltaTime() * speed;
 	}
 
 	if (this->input->keyPressed(JENGINE_KEY_D)) {
-		py -= this->deltaTime() * 10;
+		py -= this->deltaTime() * speed;
 	}
 	if (this->input->keyPressed(JENGINE_KEY_A)) {
-		py += this->deltaTime() * 10;
+		py += this->deltaTime() * speed;
 	}
 
-
-
-	glm::mat4 model(1.0f);
-	model = glm::translate(model, {0,0, -7.0f});
-	model = glm::rotate(model, angle, glm::normalize(glm::vec3{0.3f, 1.0f, 0}));
-	glm::mat4 view(1.0f);// = glm::lookAt(glm::vec3{0,0,px},glm::vec3{0,0,-7},glm::vec3{0,1,0});
-	view = glm::translate(view, glm::vec3{py, 0, px});
-	glm::mat4 perspective = glm::perspective(glm::radians(60.0f), this->renderer->aspectRatio(), 0.1f, 100.0f);
-	glm::mat4 mvp = perspective * view * model;
+	glm::mat4 model = glm::rotate(glm::translate(glm::vec3{0,0, -7.0f}), angle, glm::normalize(glm::vec3{0.3f, 1.0f, 0}));
+	this->camera->modifyPosition(glm::vec3{py, 0, px});
+	glm::mat4 mvp = this->camera->getViewMatrix() * model;
 	this->shader->setUniformMatrix<4,4>("mvp", 1, &mvp[0][0]);
 
 
@@ -90,7 +82,7 @@ bool Test::update()
 	angle += 0.1f;
 	return true;
 }
-
+/*
 void Test::testScript() {
 	Jengine::Script::Lexer lexer(Jengine::File::loadFileToString("../../res/scripts/ex1.jua"));
 	Jengine::Script::Parser parser(lexer);
@@ -98,6 +90,7 @@ void Test::testScript() {
 	Jengine::Script::Token token = interpreter.run();
 	std::cout << token.value.i << '\n';
 }
+*/
 
 void Test::testVertexArray() {
 
@@ -156,7 +149,6 @@ void Test::testVertexArray() {
 void Test::testModelLoading() {
 	this->model = Jengine::Model::loadOBJ("../../res/models/teapot.obj");
 	this->shader = new Jengine::Shader("../../res/shaders/shader.vert", "../../res/shaders/shader.frag");
-	this->model->vertexArray->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 3);
-	this->model->vertexArray->vertexBuffer->createAttributes();
-	(*this->model->vertexArray->vertexBuffer)[0].enable();
+	this->model->enable();
+	this->camera = new Jengine::Camera(static_cast<double>(glm::radians(60.0f)), this->renderer->width(), this->renderer->height(), 0.1, 100.0);
 }

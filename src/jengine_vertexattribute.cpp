@@ -35,7 +35,7 @@ namespace Jengine {
 	}
 
 
-	void VertexAttribute::createAttribute(unsigned int stride) {
+	void VertexAttribute::createAttribute(unsigned int stride) const {
 		glVertexAttribPointer(this->index, this->count, this->type, GL_FALSE, stride, reinterpret_cast<const void*>(this->offset));
 	}
 }

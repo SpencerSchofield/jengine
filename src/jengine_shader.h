@@ -30,7 +30,7 @@ namespace Jengine {
 		template <int, int>
 		void setUniformMatrix(std::string name, unsigned int count, float* data);
 
-		void bind();
+		void bind() const;
 
 	private:
 

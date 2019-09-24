@@ -11,7 +11,7 @@ namespace Jengine {
 		public:
 			Input(GLFWwindow* window, void (*f)(void));
 
-			void getEvents();
+			void getEvents() const;
 
 		private:
 			void (*inputFunc)(void);

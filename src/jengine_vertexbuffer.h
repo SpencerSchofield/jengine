@@ -34,7 +34,7 @@ namespace Jengine {
 
 		void createAttributes();
 
-		void bind();
+		void bind() const;
 
 	private:
 

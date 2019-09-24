@@ -11,11 +11,11 @@ namespace Jengine {
 		this->count = count;
 	}
 
-	unsigned long IndexBuffer::getCount() {
+	unsigned long IndexBuffer::getCount() const {
 		return this->count;
 	}
 
-	void IndexBuffer::bind() {
+	void IndexBuffer::bind() const {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->glId);
 	}
 

@@ -12,6 +12,8 @@ namespace Jengine {
 
 		static Model* loadOBJ(const std::string& fileName);
 
+		void enable() const;
+
 		const VertexArray* vertexArray;
 
 	private:

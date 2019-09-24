@@ -11,6 +11,12 @@ namespace Jengine {
 	Model::Model(VertexArray* vertexArray)
 		: vertexArray(vertexArray) {
 
+		this->vertexArray->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 3);
+		this->vertexArray->vertexBuffer->createAttributes();
+	}
+
+	void Model::enable() const {
+		(*this->vertexArray->vertexBuffer)[0].enable();
 	}
 
 	Model* Model::loadOBJ(const std::string& fileName) {
@@ -87,7 +93,8 @@ namespace Jengine {
 		}
 		return new Model(new VertexArray(
 					new VertexBuffer(&positionData[0], positionData.size() * sizeof(float), USE::STATIC_DRAW),
-					 new IndexBuffer(&positionIndex[0], positionIndex.size())));
+						 new IndexBuffer(&positionIndex[0], positionIndex.size())));
 	}
+
 
 } // namespace Jengine

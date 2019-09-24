@@ -1,3 +1,4 @@
+#include "../pch.h"
 #include "jengine_mouse.h"
 
 namespace Jengine {
@@ -10,11 +11,11 @@ namespace Jengine {
 			glfwSetScrollCallback(this->window, scrollCallback);
 		}
 
-		void Mouse::setCursorMode(CURSOR_MODE mode) {
+		void Mouse::setCursorMode(CURSOR_MODE mode) const {
 			glfwSetInputMode(this->window, GLFW_CURSOR, static_cast<int>(mode));
 		}
 
-		void Mouse::setRawMotion(bool raw) {
+		void Mouse::setRawMotion(bool raw) const {
 			glfwSetInputMode(this->window, GLFW_RAW_MOUSE_MOTION, raw ? 1 : 0);
 		}
 
@@ -31,11 +32,11 @@ namespace Jengine {
 			return {this->oPosition.x - pos.x, this->oPosition.y - pos.y};
 		}
 
-		bool Mouse::mouseButtonClicked(int button) {
+		bool Mouse::mouseButtonClicked(int button) const {
 			return glfwGetMouseButton(this->window, button) == GLFW_PRESS;
 		}
 
-		double Mouse::getMouseScroll() {
+		double Mouse::getMouseScroll() const {
 			return xScrollRel;
 		}
 

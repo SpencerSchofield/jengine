@@ -3,7 +3,6 @@
 extern Jengine::Application* jengine;
 
 int main ([[gnu::unused]] int argc, [[gnu::unused]] char** argv) {
-	jengine->onStartup();
 
 	while (!jengine->finished && !jengine->renderer->shouldClose()) {
 		jengine->currTime = glfwGetTime();
@@ -14,6 +13,4 @@ int main ([[gnu::unused]] int argc, [[gnu::unused]] char** argv) {
 		jengine->input->getEvents();
 		jengine->prevTime = jengine->currTime;
 	}
-
-	jengine->onShutdown();
 }

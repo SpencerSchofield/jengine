@@ -9,14 +9,12 @@ class Test : public Jengine::Application
 {
 public:
 	Test();
-
-	bool onStartup() override;
-	bool onShutdown() override;
+	~Test() override;
 	bool draw() override;
 	bool update() override;
 
 
-	void testScript();
+	//void testScript();
 	void testVertexArray();
 	void testModelLoading();
 
@@ -25,10 +23,9 @@ private:
 	Jengine::VertexArray* chosen;
 	Jengine::Shader* shader;
 	Jengine::Model* model;
+	Jengine::Camera* camera;
 	float angle {0.0f};
 	Jengine::Input::MousePosition x;
-	double px {0};
-	double py {0};
 };
 
 Jengine::Application* jengine = new Test;

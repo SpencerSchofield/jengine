@@ -1,3 +1,4 @@
+#include "../pch.h"
 #include "jengine_keyboard.h"
 
 namespace Jengine {
@@ -7,11 +8,11 @@ namespace Jengine {
 			: window(window) {
 		}
 
-		bool Keyboard::keyPressed(int key) {
+		bool Keyboard::keyPressed(int key) const {
 			return glfwGetKey(this->window, key);
 		}
 
-		std::string Keyboard::keyName(int key) {
+		std::string Keyboard::keyName(int key) const {
 			return glfwGetKeyName(key, 0);
 		}
 

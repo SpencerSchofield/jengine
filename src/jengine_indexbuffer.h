@@ -8,9 +8,9 @@ namespace Jengine {
 	public:
 		IndexBuffer(const unsigned int* data, unsigned long count);
 
-		unsigned long getCount();
+		unsigned long getCount() const;
 
-		void bind();
+		void bind() const;
 
 	private:
 		unsigned int glId;

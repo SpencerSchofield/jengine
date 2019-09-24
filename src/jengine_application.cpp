@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "jengine_application.h"
 
 namespace Jengine {
@@ -28,8 +29,8 @@ namespace Jengine {
 		delete this->renderer;
 	}
 
-	double Application::deltaTime() {
-		return (this->currTime - this->prevTime);
+	double Application::deltaTime() const {
+		return this->currTime - this->prevTime;
 	}
 
 }
