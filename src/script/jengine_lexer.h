@@ -4,16 +4,20 @@
 #include "jengine_tokens.h"
 #include <unordered_map>
 
-// debug
-#include <iostream>
+#include "../jengine_define.h"
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wparentheses"
+// debug
+#ifdef JENGINE_DEBUG
+#include <iostream>
+#endif
+
+//#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Wparentheses"
 
 #define isdigit(x) ((x) >= '0' && (x) <= '9')
 #define isalnum(x) (isdigit(x) || ((x) >= 'A' && (x) <= 'Z') || ((x) >= 'a' && (x) <= 'z'))
 
-#pragma GCC diagnostic pop
+//#pragma GCC diagnostic pop
 
 namespace Jengine {
 	namespace Script {
@@ -53,6 +57,7 @@ namespace Jengine {
 			}
 
 			[[noreturn]] void error(const std::string& msg = "") {
+				#ifdef JENGINE_DEBUG
 				unsigned long t1 = this->text.rfind('\n',this->position);
 				unsigned long t2 = this->text.find('\n',this->position);
 				t1 == std::string::npos ? t1 = 0 : 0;
@@ -67,8 +72,8 @@ namespace Jengine {
 					for (unsigned long i = t == std::string::npos ? 0 : t; --i;) {
 						result += ' ';
 					}
-					return result + '^';}() << '\n'
-					;
+					return result + '^';}() << '\n';
+				#endif
 				exit(-1);
 			}
 

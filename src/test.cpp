@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
+#include "jengine_logging.h"
 
 template<>
 void Jengine::Shader::setUniformMatrix<4,4>(std::string, unsigned int, float*);
@@ -19,6 +20,9 @@ Test::Test() : Jengine::Application(
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	testModelLoading();
+
+	Jengine::Logging::jassert(false, "Help");
+
 	this->chosen = const_cast<Jengine::VertexArray*>(this->model->vertexArray);
 	//testVertexArray();
 }
