@@ -6,6 +6,10 @@
 #include "jengine_vertexarray.h"
 #include "jengine_shader.h"
 #include <memory>
+#include "jengine_model.h"
+#include "jengine_camera.h"
+#include <vector>
+#include <glm/glm.hpp>
 
 namespace Jengine {
 
@@ -21,13 +25,31 @@ namespace Jengine {
 		bool shouldClose() const;
 		GLFWwindow* window;
 
-		void drawTriangles(VertexArray& vertexArray, Shader& shader) const;
+		void renderQueue(Camera* camera);
+		void push(Model* model, glm::mat4* transform, Shader* shader);
+		void renderFlush();
+
+
+		void drawTriangles(VertexArray* vertexArray, Shader* shader) const;
+		void drawModel(Model* model, Shader* shader) const;
 
 		int width() const;
 		int height() const;
 		float aspectRatio() const;
 	private:
 		struct {float r,g,b,a;} color;
+
+
+		struct RenderEvent {
+			Model* model;
+			glm::mat4* transform;
+			Shader* shader;
+		};
+
+		// render queue stuff
+		Camera* currentCamera;
+		std::vector<RenderEvent> queue;
+		bool queueStarted {false};
 	};
 
 } // namespace Jengine

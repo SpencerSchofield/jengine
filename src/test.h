@@ -10,17 +10,9 @@ class Test : public Jengine::Application
 public:
 	Test();
 	~Test() override;
-	bool draw() override;
-	bool update() override;
-
-
-	//void testScript();
-	void testVertexArray();
-	void testModelLoading();
+	void update(double deltaTime) override;
 
 private:
-	Jengine::VertexArray* v;
-	Jengine::VertexArray* chosen;
 	Jengine::Shader* shader;
 	Jengine::Model* model;
 	Jengine::Camera* camera;

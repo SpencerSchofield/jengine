@@ -1,6 +1,7 @@
 #include "jengine_vertexarray.h"
 
 #include <GL/glew.h>
+#include "jengine_logging.h"
 
 namespace Jengine {
 
@@ -18,6 +19,7 @@ namespace Jengine {
 	}
 
 	void VertexArray::bind() const {
+		//JENGINE_TRACE("");
 		glBindVertexArray(this->glId);
 		this->vertexBuffer->bind();
 		this->indexBuffer->bind();

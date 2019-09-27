@@ -20,8 +20,7 @@ namespace Jengine {
 	public:
 		Application(Application_Config config);
 		virtual ~Application();
-		virtual bool update() {return true;}
-		virtual bool draw() {return true;}
+		virtual void update(double deltaTime) = 0;
 
 		double deltaTime() const;
 

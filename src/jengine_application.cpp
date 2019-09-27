@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "jengine_application.h"
+#include "jengine_logging.h"
 
 namespace Jengine {
 
@@ -22,6 +23,7 @@ namespace Jengine {
 		this->input->setRawMotion(this->config.rawMotion);
 		this->input->setCursorMode(this->config.cursorMode);
 
+		JENGINE_INFO("Application created");
 	}
 
 

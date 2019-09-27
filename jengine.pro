@@ -12,6 +12,7 @@ SOURCES += \
 	src/jengine_entry.cpp \
 	src/jengine_file.cpp \
 	src/jengine_indexbuffer.cpp \
+	src/jengine_logging.cpp \
 	src/jengine_model.cpp \
 	src/jengine_renderer.cpp \
 	src/jengine_script.cpp \
@@ -56,6 +57,7 @@ LIBS += \
 DISTFILES += \
 	res/models/cube.mtl \
 	res/models/cube.obj \
+	res/notes \
 	res/scripts/ex1.jua \
 	res/shaders/shader.frag \
 	res/shaders/shader.vert

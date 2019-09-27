@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <string>
+#include <glm/glm.hpp>
 
 namespace Jengine {
 
@@ -28,7 +29,7 @@ namespace Jengine {
 		void setUniformArray(std::string name, unsigned int count, T* data);
 
 		template <int, int>
-		void setUniformMatrix(std::string name, unsigned int count, float* data);
+		void setUniformMatrix(std::string name, unsigned int count, glm::mat4* data);
 
 		void bind() const;
 
