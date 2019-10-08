@@ -91,7 +91,8 @@ namespace Jengine {
 						positionIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
 						oslashFound = slashFound + 1;
 						slashFound = file[i].find('/', oslashFound);
-						vtIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
+						if (slashFound - oslashFound != 0)
+							vtIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
 						oslashFound = slashFound + 1;
 						normalIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound)))-1);
 						ofound = found + 1;
