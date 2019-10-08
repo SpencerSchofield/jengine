@@ -1,6 +1,7 @@
 #include "jengine_model.h"
 
 #include "jengine_file.h"
+#include "jengine_logging.h"
 
 #ifdef JENGINE_DEBUG
 #include <iostream>
@@ -13,6 +14,10 @@ namespace Jengine {
 
 		this->vertexArray->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 3);
 		this->vertexArray->vertexBuffer->createAttributes();
+	}
+
+	Model::~Model() {
+		delete this->vertexArray;
 	}
 
 	void Model::enable() const {
@@ -36,11 +41,11 @@ namespace Jengine {
 		//std::vector<unsigned int> tmpI;
 		for (unsigned int i = 0; i < file.size(); ++i) {
 
-		#ifdef JENGINE_DEBUG
-		if (!(i % 100000)) {
-			std::cout << i << '/' << file.size() << '\n';
-		}
-		#endif
+			#ifdef JENGINE_DEBUG
+			if (!(i % 100000)) {
+				std::cout << i << '/' << file.size() << '\n';
+			}
+			#endif
 
 			switch (file[i][0]) {
 				case 'v':
@@ -72,6 +77,9 @@ namespace Jengine {
 							ofound = found + 1;
 							normalData.push_back(std::stof(file[i].substr(ofound)));
 						break;
+						default:
+							JENGINE_INFO("Model({0}): Type not supported - {1}", fileName, file[i]);
+						break;
 					}
 				break;
 				case 'f':
@@ -83,11 +91,15 @@ namespace Jengine {
 						positionIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
 						oslashFound = slashFound + 1;
 						slashFound = file[i].find('/', oslashFound);
-						vtIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
+						if (slashFound - oslashFound != 0)
+							vtIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
 						oslashFound = slashFound + 1;
 						normalIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound)))-1);
 						ofound = found + 1;
 					}
+				break;
+				default:
+					JENGINE_INFO("Model({0}): {1} - data ignored", fileName, file[i]);
 				break;
 			}
 		}

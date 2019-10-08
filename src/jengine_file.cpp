@@ -1,11 +1,12 @@
 #include "jengine_file.h"
 
+#include "jengine_logging.h"
+
 namespace Jengine::File {
 
 	std::string loadFileToString(const std::string& filePath) {
 		FILE* file = fopen(filePath.c_str(), "rb");
-		if (!file)
-			return "File not opened!";
+		JENGINE_ASSERT(file, "File ({0}) could not be opened", filePath);
 		std::fseek(file, 0, SEEK_END);
 		long length = std::ftell(file);
 		std::fseek(file, 0, SEEK_SET);
@@ -69,7 +70,6 @@ namespace Jengine::File {
 	}
 
 	std::string replaceBetweenIndexed(std::string& x, const std::string& start, const std::string& end, const std::vector<std::string>& replacements) {
-		std::string out;
 		unsigned long foundStart = 0;
 		unsigned long foundEnd = 0;
 		unsigned long t = 0;
@@ -80,22 +80,24 @@ namespace Jengine::File {
 			x.erase(foundStart, foundEnd);
 			x.insert(foundStart, replacements[t]);
 		}
-		return out;
+		return x;
 	}
 
 	std::string replaceBetweenIndexed(std::string& x, char start, char end, const std::vector<std::string>& replacements) {
-		std::string out;
 		unsigned long foundStart = 0;
 		unsigned long foundEnd = 0;
 		unsigned long t = 0;
 		while ((foundStart = x.find(start, foundStart)) != std::string::npos && (foundEnd = x.find(end, foundEnd))) {
 			t = std::stoul(x.substr(foundStart + 1, foundEnd - 1));
-			if (t > replacements.size())
+			if (t >= replacements.size()) {
+				foundEnd++;
+				foundStart++;
 				continue;
-			x.erase(foundStart, foundEnd);
-			x.insert(foundStart, replacements[t]);
+			}
+			x.erase(foundStart, foundEnd++ - foundStart + 1);
+			x.insert(foundStart++, replacements[t]);
 		}
-		return out;
+		return x;
 	}
 
 } // namespace Jengine

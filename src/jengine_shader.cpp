@@ -4,6 +4,9 @@
 #include <GL/glew.h>
 
 #include <iostream>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "jengine_logging.h"
 
 namespace Jengine {
 
@@ -48,6 +51,7 @@ namespace Jengine {
 	}
 
 	void Shader::bind() const {
+		//JENGINE_TRACE("");
 		glUseProgram(this->glId);
 	}
 
@@ -192,48 +196,8 @@ namespace Jengine {
 	}
 
 	template <>
-	void Shader::setUniformMatrix<2,2>(std::string name, unsigned int count, float* data) {
-		glUniformMatrix2fv(getLocation(name), count, false, data);
-	}
-
-	template <>
-	void Shader::setUniformMatrix<2,3>(std::string name, unsigned int count, float* data) {
-		glUniformMatrix2x3fv(getLocation(name), count, false, data);
-	}
-
-	template <>
-	void Shader::setUniformMatrix<2,4>(std::string name, unsigned int count, float* data) {
-		glUniformMatrix2x4fv(getLocation(name), count, false, data);
-	}
-
-	template <>
-	void Shader::setUniformMatrix<3,3>(std::string name, unsigned int count, float* data) {
-		glUniformMatrix3fv(getLocation(name), count, false, data);
-	}
-
-	template <>
-	void Shader::setUniformMatrix<3,2>(std::string name, unsigned int count, float* data) {
-		glUniformMatrix3x2fv(getLocation(name), count, false, data);
-	}
-
-	template <>
-	void Shader::setUniformMatrix<3,4>(std::string name, unsigned int count, float* data) {
-		glUniformMatrix3x4fv(getLocation(name), count, false, data);
-	}
-
-	template <>
-	void Shader::setUniformMatrix<4,4>(std::string name, unsigned int count, float* data) {
-		glUniformMatrix4fv(getLocation(name), count, false, data);
-	}
-
-	template <>
-	void Shader::setUniformMatrix<4,2>(std::string name, unsigned int count, float* data) {
-		glUniformMatrix4x2fv(getLocation(name), count, false, data);
-	}
-
-	template <>
-	void Shader::setUniformMatrix<4,3>(std::string name, unsigned int count, float* data) {
-		glUniformMatrix4x3fv(getLocation(name), count, false, data);
+	void Shader::setUniformMatrix<4,4>(std::string name, unsigned int count, glm::mat4* data) {
+		glUniformMatrix4fv(getLocation(name), count, false, glm::value_ptr(data[0]));
 	}
 
 	/*
