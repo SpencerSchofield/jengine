@@ -12,6 +12,7 @@ namespace Jengine {
 	{
 	public:
 		VertexArray(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
+		VertexArray(const void* data, unsigned long size, unsigned int usage);
 		~VertexArray();
 
 		VertexBuffer* const vertexBuffer;
@@ -21,6 +22,7 @@ namespace Jengine {
 
 	private:
 		unsigned int glId;
+		unsigned int buffer[2];
 	};
 
 } // namespace Jengine

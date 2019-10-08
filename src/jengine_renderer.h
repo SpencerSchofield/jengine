@@ -10,6 +10,7 @@
 #include "jengine_camera.h"
 #include <vector>
 #include <glm/glm.hpp>
+#include <unordered_map>
 
 namespace Jengine {
 
@@ -48,7 +49,7 @@ namespace Jengine {
 
 		// render queue stuff
 		Camera* currentCamera;
-		std::vector<RenderEvent> queue;
+		std::unordered_map<Shader*, std::vector<RenderEvent>> queue;
 		bool queueStarted {false};
 	};
 

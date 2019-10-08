@@ -66,37 +66,34 @@ namespace Jengine {
 	}
 
 	void Renderer::renderQueue(Camera* camera) {
+		JENGINE_ASSERT(!this->queueStarted, "Tried starting render queue multiple times");
 		this->currentCamera = camera;
 		this->queueStarted = true;
 	}
 
 	void Renderer::push(Model* model, glm::mat4* transform, Shader* shader) {
 		JENGINE_ASSERT(this->queueStarted, "Tried pushing before starting renderQueue");
-		this->queue.push_back({model, transform, shader});
+		this->queue[shader].push_back({model, transform, shader});
 	}
 
 	void Renderer::renderFlush() {
 		JENGINE_ASSERT(this->queueStarted, "Tried flushing before starting renderQueue");
 		glm::mat4 camera = this->currentCamera->getViewMatrix();
-		std::sort(this->queue.begin(), this->queue.end(), [](RenderEvent& a, RenderEvent& b){
-			return a.shader - b.shader;
-		});
 		[[maybe_unused]] unsigned long numVerticies {0};
-		Shader* currentShader {nullptr};
-		for (unsigned long i = 0; i < this->queue.size(); i++) {
-			RenderEvent& currentEvent = this->queue[i];
-			if (currentEvent.shader != currentShader) {
-				currentEvent.shader->bind();
-				currentEvent.shader->setUniformMatrix<4,4>("vp", 1, &camera);
+		for (auto subQueue : this->queue) {
+			subQueue.first->bind();
+			subQueue.first->setUniformMatrix<4,4>("vp", 1, &camera);
+			for (unsigned long i = 0; i < subQueue.second.size(); i++) {
+				RenderEvent& currentEvent = subQueue.second[i];
+				currentEvent.shader->setUniformMatrix<4,4>("model", 1, currentEvent.transform);
+				currentEvent.model->enable();
+				glDrawElements(GL_TRIANGLES,
+							   static_cast<int>(currentEvent.model->vertexArray->indexBuffer->getCount()),
+							   GL_UNSIGNED_INT, nullptr);
+				#ifdef JENGINE_DEBUG
+				numVerticies += currentEvent.model->vertexArray->indexBuffer->getCount();
+				#endif
 			}
-			currentEvent.shader->setUniformMatrix<4,4>("model", 1, this->queue[i].transform);
-			currentEvent.model->enable();
-			glDrawElements(GL_TRIANGLES,
-						   static_cast<int>(currentEvent.model->vertexArray->indexBuffer->getCount()),
-						   GL_UNSIGNED_INT, nullptr);
-			#ifdef JENGINE_DEBUG
-			numVerticies += currentEvent.model->vertexArray->indexBuffer->getCount();
-			#endif
 		}
 		this->queue.clear();
 		this->queueStarted = false;

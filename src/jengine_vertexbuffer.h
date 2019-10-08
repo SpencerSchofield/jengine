@@ -34,6 +34,8 @@ namespace Jengine {
 
 		void createAttributes();
 
+		unsigned int getId();
+
 		void bind() const;
 
 	private:
@@ -41,7 +43,7 @@ namespace Jengine {
 		unsigned int glId;
 
 		std::vector<VertexAttribute> attributes;
-		unsigned int attributeOffset;
+		unsigned int attributeOffset {0};
 
 	};
 }

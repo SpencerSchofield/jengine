@@ -9,7 +9,8 @@ namespace Jengine {
 		glGenBuffers(1, &this->glId);
 		glBindBuffer(GL_ARRAY_BUFFER, this->glId);
 		glBufferData(GL_ARRAY_BUFFER, size, data, usage);
-		this->attributeOffset = 0;
+		//glCreateBuffers(1, &this->glId);
+		//glNamedBufferStorage(this->glId, size, data, 0);
 	}
 
 	VertexBuffer::~VertexBuffer() {
@@ -41,6 +42,10 @@ namespace Jengine {
 		for (unsigned int i = 0; i < this->attributes.size(); i++) {
 			this->attributes[i].createAttribute(attributeOffset);
 		}
+	}
+
+	unsigned int VertexBuffer::getId() {
+		return this->glId;
 	}
 }
 
