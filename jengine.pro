@@ -36,6 +36,7 @@ HEADERS += \
 	src/jengine_logging.h \
 	src/jengine_model.h \
 	src/jengine_renderer.h \
+	src/jengine_ret.h \
 	src/jengine_script.h \
 	src/jengine_shader.h \
 	src/jengine_vertexarray.h \

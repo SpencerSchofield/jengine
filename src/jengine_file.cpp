@@ -4,9 +4,12 @@
 
 namespace Jengine::File {
 
-	std::string loadFileToString(const std::string& filePath) {
+	Ret<std::string> loadFileToString(const std::string& filePath) {
 		FILE* file = fopen(filePath.c_str(), "rb");
-		JENGINE_ASSERT(file, "File ({0}) could not be opened", filePath);
+		if (!file) {
+			JENGINE_WARN("File ({0}) could not be opened", filePath);
+			return {"", false};
+		}
 		std::fseek(file, 0, SEEK_END);
 		long length = std::ftell(file);
 		std::fseek(file, 0, SEEK_SET);
@@ -16,7 +19,7 @@ namespace Jengine::File {
 		buffer[length] = '\0';
 		std::string out(buffer);
 		delete [] buffer;
-		return out;
+		return {out};
 	}
 
 	std::vector<std::string> splitByDelimeter(std::string x, const std::string& delimeter) {
