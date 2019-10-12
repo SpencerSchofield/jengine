@@ -4,9 +4,10 @@
 #include <string>
 #include <vector>
 #include "jengine_define.h"
+#include "jengine_ret.h"
 
 namespace Jengine::File {
-	std::string loadFileToString(const std::string& filePath);
+	Ret<std::string> loadFileToString(const std::string& filePath);
 	std::vector<std::string> splitByDelimeter(std::string x, const std::string& delimeter);
 	std::vector<std::string> splitByDelimeter(std::string x, char delimeter);
 	std::string removeOccurences(std::string x, const std::string& remove);
