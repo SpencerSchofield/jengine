@@ -31,6 +31,7 @@ HEADERS += \
 	src/jengine_camera.h \
 	src/jengine_define.h \
 	src/jengine_file.h \
+	src/jengine_flushablevector.h \
 	src/jengine_globject.h \
 	src/jengine_indexbuffer.h \
 	src/jengine_logging.h \
