@@ -2,7 +2,10 @@
 
 extern Jengine::Application* jengine;
 
-int main ([[gnu::unused]] int argc, [[gnu::unused]] char** argv) {
+int main (
+		[[gnu::unused]] int argc,
+		[[gnu::unused]] char** argv)
+{
 
 	while (!jengine->finished && !jengine->renderer->shouldClose()) {
 		jengine->currTime = glfwGetTime();

@@ -6,10 +6,10 @@ namespace Jengine {
 	class IndexBuffer
 	{
 	public:
-		IndexBuffer(const unsigned int* data, unsigned long count);
-
+		IndexBuffer(
+				const unsigned int* data,
+				unsigned long count);
 		unsigned long getCount() const;
-
 		void bind() const;
 
 	private:

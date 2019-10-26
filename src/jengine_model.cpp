@@ -9,22 +9,28 @@
 
 namespace Jengine {
 
-	Model::Model(VertexArray* vertexArray)
-		: vertexArray(vertexArray) {
+	Model::Model(
+			VertexArray* vertexArray)
+		: vertexArray(vertexArray)
+	{
 
 		this->vertexArray->vertexBuffer->addAttribute(Jengine::ATTRIBUTE_TYPE::FLOAT, 3);
 		this->vertexArray->vertexBuffer->createAttributes();
 	}
 
-	Model::~Model() {
+	Model::~Model()
+	{
 		delete this->vertexArray;
 	}
 
-	void Model::enable() const {
+	void Model::enable() const
+	{
 		(*this->vertexArray->vertexBuffer)[0].enable();
 	}
 
-	Model* Model::loadOBJ(const std::string& fileName) {
+	Model* Model::loadOBJ(
+			const std::string& fileName)
+	{
 		std::vector<float> positionData;
 		std::vector<float> vt;
 		std::vector<float> normalData;
@@ -88,13 +94,19 @@ namespace Jengine {
 						oslashFound = ofound;
 						found = file[i].find(' ', ofound);
 						slashFound = file[i].find('/', oslashFound);
-						positionIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
+						positionIndex.push_back(
+							static_cast<unsigned int>(
+							std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
 						oslashFound = slashFound + 1;
 						slashFound = file[i].find('/', oslashFound);
 						if (slashFound - oslashFound != 0)
-							vtIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
+							vtIndex.push_back(
+								static_cast<unsigned int>(
+								std::stoul(file[i].substr(oslashFound, slashFound - oslashFound)))-1);
 						oslashFound = slashFound + 1;
-						normalIndex.push_back(static_cast<unsigned int>(std::stoul(file[i].substr(oslashFound)))-1);
+						normalIndex.push_back(
+							static_cast<unsigned int>(
+							std::stoul(file[i].substr(oslashFound)))-1);
 						ofound = found + 1;
 					}
 				break;
@@ -104,8 +116,9 @@ namespace Jengine {
 			}
 		}
 		return new Model(new VertexArray(
-					new VertexBuffer(&positionData[0], positionData.size() * sizeof(float), USE::STATIC_DRAW),
-						 new IndexBuffer(&positionIndex[0], positionIndex.size())));
+			new VertexBuffer(&positionData[0], positionData.size() * sizeof(float),
+				USE::STATIC_DRAW),
+			new IndexBuffer(&positionIndex[0], positionIndex.size())));
 	}
 
 

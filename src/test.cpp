@@ -8,21 +8,29 @@
 #include <glm/gtx/transform.hpp>
 #include "jengine_logging.h"
 
+
 Test::Test()
 	: Jengine::Application(
-		{"Test", 1280, 720, true, true, true, Jengine::Input::CURSOR_MODE::DISABLED}
-		) {
+		{"Test",
+		  1280,
+		  720,
+		  true,
+		  true,
+		  true,
+		  Jengine::Input::CURSOR_MODE::DISABLED}
+		)
+{
 
-	//this->model = Jengine::Model::loadOBJ("../../res/models/man.obj");
-	//this->shader = new Jengine::Shader("../../res/shaders/shader.vert", "../../res/shaders/shader.frag");
-	//this->camera = new Jengine::Camera(static_cast<double>(glm::radians(60.0f)), this->renderer->width(), this->renderer->height(), 0.1, 1000.0);
-	exit(0);
+	this->model = Jengine::Model::loadOBJ("../../res/models/man.obj");
+	this->shader = new Jengine::Shader("../../res/shaders/shader.vert", "../../res/shaders/shader.frag");
+	this->camera = new Jengine::Camera(static_cast<double>(glm::radians(60.0f)), this->renderer->width(), this->renderer->height(), 0.1, 1000.0);
 }
 
 Test::~Test() {
 }
 
-void Test::update(double deltaTime)
+void Test::update(
+		double deltaTime)
 {
 	double px {0};
 	double py {0};

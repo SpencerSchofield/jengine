@@ -9,11 +9,19 @@
 #include <algorithm>
 
 template<>
-void Jengine::Shader::setUniformMatrix<4,4>(std::string, unsigned int, glm::mat4*);
+void Jengine::Shader::setUniformMatrix<4,4>(
+		std::string,
+		unsigned int,
+		glm::mat4*);
 
 namespace Jengine {
 
-	Renderer::Renderer(const char* name, int width, int height, bool vsync) {
+	Renderer::Renderer(
+			const char* name,
+			int width,
+			int height,
+			bool vsync)
+	{
 		if (!glfwInit()) {
 			JENGINE_FATAL("GLFW could not be inilialised");
 		}
@@ -35,48 +43,69 @@ namespace Jengine {
 		JENGINE_INFO("Depth testing enabled");
 	}
 
-	Renderer::~Renderer() {
+	Renderer::~Renderer()
+	{
 		glfwDestroyWindow(window);
 		glfwTerminate();
 	}
 
-	void Renderer::startFrame() const {
+	void Renderer::startFrame() const
+	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Renderer::endFrame() const {
+	void Renderer::endFrame() const
+	{
 		glfwSwapBuffers(this->window);
 		glfwPollEvents();
 	}
 
-	void Renderer::setClearColor(float r, float g, float b, float a) {
+	void Renderer::setClearColor(
+			float r,
+			float g,
+			float b,
+			float a)
+	{
 		this->color = {r, g, b, a};
 		glClearColor(r, g, b, a);
 	}
 
-	void Renderer::clearColor(float& r, float& g, float& b, float& a) const {
+	void Renderer::clearColor(
+			float& r,
+			float& g,
+			float& b,
+			float& a) const
+	{
 		r = this->color.r;
 		g = this->color.g;
 		b = this->color.b;
 		a = this->color.a;
 	}
 
-	bool Renderer::shouldClose() const {
+	bool Renderer::shouldClose() const
+	{
 		return glfwWindowShouldClose(this->window);
 	}
 
-	void Renderer::renderQueue(Camera* camera) {
+	void Renderer::renderQueue(
+			Camera* camera)
+	{
 		JENGINE_ASSERT(!this->queueStarted, "Tried starting render queue multiple times");
 		this->currentCamera = camera;
 		this->queueStarted = true;
 	}
 
-	void Renderer::push(Model* model, glm::mat4* transform, Shader* shader) {
+	void Renderer::push(
+			Model* model,
+			glm::mat4* transform,
+			Shader* shader)
+	{
 		JENGINE_ASSERT(this->queueStarted, "Tried pushing before starting renderQueue");
 		this->queue[shader].push_back({model, transform, shader});
 	}
 
-	void Renderer::renderFlush() {
+	void Renderer::renderFlush()
+	{
 		JENGINE_ASSERT(this->queueStarted, "Tried flushing before starting renderQueue");
 		glm::mat4 camera = this->currentCamera->getViewMatrix();
 		[[maybe_unused]] unsigned long numVerticies {0};
@@ -88,8 +117,8 @@ namespace Jengine {
 				currentEvent.shader->setUniformMatrix<4,4>("model", 1, currentEvent.transform);
 				currentEvent.model->enable();
 				glDrawElements(GL_TRIANGLES,
-							   static_cast<int>(currentEvent.model->vertexArray->indexBuffer->getCount()),
-							   GL_UNSIGNED_INT, nullptr);
+					static_cast<int>(currentEvent.model->vertexArray->indexBuffer->getCount()),
+					GL_UNSIGNED_INT, nullptr);
 				#ifdef JENGINE_DEBUG
 				numVerticies += currentEvent.model->vertexArray->indexBuffer->getCount();
 				#endif
@@ -100,29 +129,39 @@ namespace Jengine {
 		JENGINE_DEBUG_LOG("{0} verticies rendered", numVerticies);
 	}
 
-	void Renderer::drawTriangles(VertexArray* vertexArray, Shader* shader) const {
+	void Renderer::drawTriangles(
+			VertexArray* vertexArray,
+			Shader* shader) const
+	{
 		shader->bind();
 		vertexArray->bind();
-		glDrawElements(GL_TRIANGLES, static_cast<int>(vertexArray->indexBuffer->getCount()), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES,
+			static_cast<int>(vertexArray->indexBuffer->getCount()), GL_UNSIGNED_INT, nullptr);
 	}
 
-	void Renderer::drawModel(Model* model, Shader* shader) const {
+	void Renderer::drawModel(
+			Model* model,
+			Shader* shader) const
+	{
 		drawTriangles(model->vertexArray, shader);
 	}
 
-	int Renderer::width() const {
+	int Renderer::width() const
+	{
 		int width;
 		glfwGetWindowSize(this->window, &width, nullptr);
 		return width;
 	}
 
-	int Renderer::height() const {
+	int Renderer::height() const
+	{
 		int height;
 		glfwGetWindowSize(this->window, nullptr, &height);
 		return height;
 	}
 
-	float Renderer::aspectRatio() const {
+	float Renderer::aspectRatio() const
+	{
 		int width, height;
 		glfwGetWindowSize(this->window, &width, &height);
 		return width / static_cast<float>(height);

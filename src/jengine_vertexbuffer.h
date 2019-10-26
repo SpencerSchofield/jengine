@@ -23,19 +23,20 @@ namespace Jengine {
 	class VertexBuffer
 	{
 	public:
-		VertexBuffer(const void* data, unsigned long size, unsigned int usage);
+		VertexBuffer(
+				const void* data,
+				unsigned long size,
+				unsigned int usage);
 		~VertexBuffer();
-
-		void addAttribute(unsigned int type, unsigned int count);
-
-		VertexAttribute& operator[](unsigned long index);
-
-		VertexAttribute& attribute(unsigned long index);
-
+		void addAttribute(
+				unsigned int type,
+				unsigned int count);
+		VertexAttribute& operator[](
+				unsigned long index);
+		VertexAttribute& attribute(
+				unsigned long index);
 		void createAttributes();
-
 		unsigned int getId();
-
 		void bind() const;
 
 	private:

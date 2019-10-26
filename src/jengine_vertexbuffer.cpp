@@ -4,7 +4,10 @@
 
 namespace Jengine {
 
-	VertexBuffer::VertexBuffer(const void* data, unsigned long size, unsigned int usage)
+	VertexBuffer::VertexBuffer(
+			const void* data,
+			unsigned long size,
+			unsigned int usage)
 	{
 		glGenBuffers(1, &this->glId);
 		glBindBuffer(GL_ARRAY_BUFFER, this->glId);
@@ -13,11 +16,15 @@ namespace Jengine {
 		//glNamedBufferStorage(this->glId, size, data, 0);
 	}
 
-	VertexBuffer::~VertexBuffer() {
+	VertexBuffer::~VertexBuffer()
+	{
 		glDeleteBuffers(1, &this->glId);
 	}
 
-	void VertexBuffer::addAttribute(unsigned int type, unsigned int count) {
+	void VertexBuffer::addAttribute(
+			unsigned int type,
+			unsigned int count)
+	{
 		unsigned int size;
 		this->attributes.emplace_back(
 					VertexAttribute(static_cast<unsigned int>(this->attributes.size()),
@@ -26,25 +33,32 @@ namespace Jengine {
 	}
 
 
-	VertexAttribute& VertexBuffer::operator[](unsigned long index) {
+	VertexAttribute& VertexBuffer::operator[](
+			unsigned long index)
+	{
 		return this->attributes[index];
 	}
 
-	VertexAttribute& VertexBuffer::attribute(unsigned long index) {
+	VertexAttribute& VertexBuffer::attribute(
+			unsigned long index)
+	{
 		return this->attributes[index];
 	}
 
-	void VertexBuffer::bind() const {
+	void VertexBuffer::bind() const
+	{
 		glBindBuffer(GL_ARRAY_BUFFER, this->glId);
 	}
 
-	void VertexBuffer::createAttributes() {
+	void VertexBuffer::createAttributes()
+	{
 		for (unsigned int i = 0; i < this->attributes.size(); i++) {
 			this->attributes[i].createAttribute(attributeOffset);
 		}
 	}
 
-	unsigned int VertexBuffer::getId() {
+	unsigned int VertexBuffer::getId()
+	{
 		return this->glId;
 	}
 }

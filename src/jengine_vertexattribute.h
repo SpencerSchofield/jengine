@@ -20,10 +20,16 @@ namespace Jengine {
 	class VertexAttribute
 	{
 	public:
-		VertexAttribute(unsigned int index, unsigned int type, unsigned int count, unsigned int offset, unsigned int* const size = nullptr);
+		VertexAttribute(
+				unsigned int index,
+				unsigned int type,
+				unsigned int count,
+				unsigned int offset,
+				unsigned int* const size = nullptr);
 		void enable();
 		void disable();
-		void createAttribute(unsigned int stride) const;
+		void createAttribute(
+				unsigned int stride) const;
 
 	private:
 		bool enabled;

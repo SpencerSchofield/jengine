@@ -10,7 +10,8 @@ class Test : public Jengine::Application
 public:
 	Test();
 	~Test() override;
-	void update(double deltaTime) override;
+	void update(
+			double deltaTime) override;
 
 private:
 	Jengine::Shader* shader;

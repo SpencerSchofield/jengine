@@ -4,7 +4,10 @@
 namespace Jengine {
 	namespace Logging {
 
-		std::string createMessage(LEVEL logLevel, const std::string& msg) {
+		std::string createMessage(
+				LEVEL logLevel,
+				const std::string& msg)
+		{
 			std::string x[] = {
 				"[TRACE]  ",
 				"[DEBUG]  ",

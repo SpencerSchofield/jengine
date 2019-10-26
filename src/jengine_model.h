@@ -8,11 +8,11 @@ namespace Jengine {
 	class Model
 	{
 	public:
-		Model(VertexArray* vertexArray);
+		Model(
+				VertexArray* vertexArray);
 		virtual ~Model();
-
-		static Model* loadOBJ(const std::string& fileName);
-
+		static Model* loadOBJ(
+				const std::string& fileName);
 		void enable() const;
 
 		VertexArray* const vertexArray;

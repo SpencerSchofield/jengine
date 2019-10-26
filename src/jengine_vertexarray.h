@@ -11,8 +11,13 @@ namespace Jengine {
 	class VertexArray
 	{
 	public:
-		VertexArray(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
-		VertexArray(const void* data, unsigned long size, unsigned int usage);
+		VertexArray(
+				VertexBuffer* vertexBuffer,
+				IndexBuffer* indexBuffer);
+		VertexArray(
+				const void* data,
+				unsigned long size,
+				unsigned int usage);
 		~VertexArray();
 
 		VertexBuffer* const vertexBuffer;

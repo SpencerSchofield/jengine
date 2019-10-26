@@ -6,8 +6,10 @@ namespace Jengine {
 
 	Application* Application::latestApplication;
 
-	Application::Application(Application_Config config)
-		: config(config) {
+	Application::Application(
+			Application_Config config)
+		: config(config)
+	{
 		latestApplication = this;
 		this->renderer = new Jengine::Renderer(this->config.name,
 											   this->config.width,

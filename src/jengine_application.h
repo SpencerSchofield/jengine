@@ -18,13 +18,17 @@ namespace Jengine {
 
 	class Application {
 	public:
-		Application(Application_Config config);
+		Application(
+				Application_Config config);
 		virtual ~Application();
-		virtual void update(double deltaTime) = 0;
-
+		virtual void update(
+				double deltaTime) = 0;
 		double deltaTime() const;
+		static inline Application& application()
+		{
+			return *latestApplication;
+		}
 
-		static inline Application& application() {return *latestApplication;}
 		bool finished;
 		Jengine::Renderer* renderer;
 		Jengine::Input::Input* input;

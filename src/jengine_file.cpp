@@ -4,7 +4,9 @@
 
 namespace Jengine::File {
 
-	Ret<std::string> loadFileToString(const std::string& filePath) {
+	Ret<std::string> loadFileToString(
+			const std::string& filePath)
+	{
 		FILE* file = fopen(filePath.c_str(), "rb");
 		if (!file) {
 			JENGINE_WARN("File ({0}) could not be opened", filePath);
@@ -22,7 +24,10 @@ namespace Jengine::File {
 		return {out};
 	}
 
-	std::vector<std::string> splitByDelimeter(std::string x, const std::string& delimeter) {
+	std::vector<std::string> splitByDelimeter(
+			std::string x,
+			const std::string& delimeter)
+	{
 		std::vector<std::string> out;
 		unsigned long found;
 		unsigned long ofound = 0;
@@ -33,7 +38,10 @@ namespace Jengine::File {
 		return out;
 	}
 
-	std::string removeOccurences(std::string x, const std::string& remove) {
+	std::string removeOccurences(
+			std::string x,
+			const std::string& remove)
+	{
 		unsigned long found = 0;
 		while ((found = x.find(remove, found)) != std::string::npos) {
 			x.erase(found, remove.length());
@@ -41,7 +49,10 @@ namespace Jengine::File {
 		return x;
 	}
 
-	std::vector<std::string> splitByDelimeter(std::string x, char delimeter) {
+	std::vector<std::string> splitByDelimeter(
+			std::string x,
+			char delimeter)
+	{
 		std::vector<std::string> out;
 		unsigned long found;
 		unsigned long ofound = 0;
@@ -52,31 +63,47 @@ namespace Jengine::File {
 		return out;
 	}
 
-	std::vector<std::string> extractBetween(const std::string& x, const std::string& start, const std::string& end) {
+	std::vector<std::string> extractBetween(
+			const std::string& x,
+			const std::string& start,
+			const std::string& end)
+	{
 		std::vector<std::string> out;
 		unsigned long foundStart = 0;
 		unsigned long foundEnd = 0;
-		while ((foundStart = x.find(start, foundStart)) != std::string::npos && (foundEnd = x.find(end, foundEnd))) {
+		while ((foundStart = x.find(start, foundStart)) != std::string::npos
+			   && (foundEnd = x.find(end, foundEnd))) {
 			out.emplace_back(x.substr(foundStart++, foundEnd++ - 1));
 		}
 		return out;
 	}
 
-	std::vector<std::string> extractBetween(const std::string& x, char start, char end) {
+	std::vector<std::string> extractBetween(
+			const std::string& x,
+			char start,
+			char end)
+	{
 		std::vector<std::string> out;
 		unsigned long foundStart = 0;
 		unsigned long foundEnd = 0;
-		while ((foundStart = x.find(start, foundStart)) != std::string::npos && (foundEnd = x.find(end, foundEnd))) {
+		while ((foundStart = x.find(start, foundStart)) != std::string::npos
+			   && (foundEnd = x.find(end, foundEnd))) {
 			out.emplace_back(x.substr(foundStart++, foundEnd++ - 1));
 		}
 		return out;
 	}
 
-	std::string replaceBetweenIndexed(std::string& x, const std::string& start, const std::string& end, const std::vector<std::string>& replacements) {
+	std::string replaceBetweenIndexed(
+			std::string& x,
+			const std::string& start,
+			const std::string& end,
+			const std::vector<std::string>& replacements)
+	{
 		unsigned long foundStart = 0;
 		unsigned long foundEnd = 0;
 		unsigned long t = 0;
-		while ((foundStart = x.find(start, foundStart)) != std::string::npos && (foundEnd = x.find(end, foundEnd))) {
+		while ((foundStart = x.find(start, foundStart)) != std::string::npos
+			   && (foundEnd = x.find(end, foundEnd))) {
 			t = std::stoul(x.substr(foundStart + 1, foundEnd - 1));
 			if (t > replacements.size())
 				continue;
@@ -86,11 +113,17 @@ namespace Jengine::File {
 		return x;
 	}
 
-	std::string replaceBetweenIndexed(std::string& x, char start, char end, const std::vector<std::string>& replacements) {
+	std::string replaceBetweenIndexed(
+			std::string& x,
+			char start,
+			char end,
+			const std::vector<std::string>& replacements)
+	{
 		unsigned long foundStart = 0;
 		unsigned long foundEnd = 0;
 		unsigned long t = 0;
-		while ((foundStart = x.find(start, foundStart)) != std::string::npos && (foundEnd = x.find(end, foundEnd))) {
+		while ((foundStart = x.find(start, foundStart)) != std::string::npos
+			   && (foundEnd = x.find(end, foundEnd))) {
 			t = std::stoul(x.substr(foundStart + 1, foundEnd - 1));
 			if (t >= replacements.size()) {
 				foundEnd++;

@@ -8,17 +8,32 @@ namespace Jengine {
 	class Camera
 	{
 	public:
-		Camera(double fov, double width, double height, double near, double far);
-		Camera(double left, double right, double bottom, double top, double near, double far);
-
+		Camera(
+			double fov,
+			double width,
+			double height,
+			double near,
+			double far);
+		Camera(
+			double left,
+			double right,
+			double bottom,
+			double top,
+			double near,
+			double far);
 		glm::mat4 getViewMatrix();
-		void setPosition(glm::vec3 position);
-		void setAngle(glm::vec3 angle);
-		void setPositionAndAngle(glm::mat4 matrix);
-
-		void modifyPosition(glm::vec3 position);
-		void modifyAngle(glm::vec3 angle);
-		void modifyPositionAndAngle(glm::mat4 matrix);
+		void setPosition(
+				glm::vec3 position);
+		void setAngle(
+				glm::vec3 angle);
+		void setPositionAndAngle(
+				glm::mat4 matrix);
+		void modifyPosition(
+				glm::vec3 position);
+		void modifyAngle(
+				glm::vec3 angle);
+		void modifyPositionAndAngle(
+				glm::mat4 matrix);
 
 	private:
 

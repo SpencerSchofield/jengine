@@ -41,10 +41,15 @@ namespace Jengine {
 		};
 		UNIMPLEMENTED static LEVEL LOGGING_LEVEL;
 
-		std::string createMessage(LEVEL logLevel, const std::string& msg);
+		std::string createMessage(
+				LEVEL logLevel,
+				const std::string& msg);
 
 		template <typename... T>
-		std::string jmsg(std::string msg, T... msgParams) {
+		std::string jmsg(
+				std::string msg,
+				T... msgParams)
+		{
 			std::vector<std::string> msgParamsList = {
 				[](T x){
 					if constexpr (std::is_arithmetic<T>::value) {
@@ -62,19 +67,26 @@ namespace Jengine {
 		/// Trace //////////////
 		////////////////////////
 		template <typename... T>
-		void jtrace(const std::string& func, const std::string& file, int line,
-					const std::string& msg, T... msgParams) {
+		void jtrace(
+				const std::string& func,
+				const std::string& file,
+				int line,
+				const std::string& msg,
+				T... msgParams)
+		{
 			std::cout << createMessage(LEVEL::TRACE,
-									   jmsg(func + " - \"" + file + "\" line: " + std::to_string(line)
-											+ " - "
-+ msg, msgParams...));
+				jmsg(func + " - \"" + file + "\" line: " +
+				std::to_string(line) + " - " + msg, msgParams...));
 		}
 
 		////////////////////////
 		/// Debug //////////////
 		////////////////////////
 		template <typename... T>
-		void jdebug(std::string msg, T... msgParams) {
+		void jdebug(
+				std::string msg,
+				T... msgParams)
+		{
 			std::cout << createMessage(LEVEL::DEBUG, jmsg(msg, msgParams...));
 		}
 
@@ -82,7 +94,10 @@ namespace Jengine {
 		/// Info ///////////////
 		////////////////////////
 		template <typename... T>
-		void jinfo(std::string msg, T... msgParams) {
+		void jinfo(
+				std::string msg,
+				T... msgParams)
+		{
 			std::cout << createMessage(LEVEL::INFO, jmsg(msg, msgParams...));
 		}
 
@@ -90,7 +105,10 @@ namespace Jengine {
 		/// Warn ///////////////
 		////////////////////////
 		template <typename... T>
-		void jwarn(std::string msg, T... msgParams) {
+		void jwarn(
+				std::string msg,
+				T... msgParams)
+		{
 			std::cout << createMessage(LEVEL::WARN, jmsg(msg, msgParams...));
 		}
 
@@ -98,7 +116,10 @@ namespace Jengine {
 		/// Error //////////////
 		////////////////////////
 		template <typename... T>
-		void jerror(std::string msg, T... msgParams) {
+		void jerror(
+				std::string msg,
+				T... msgParams)
+		{
 			std::cout << createMessage(LEVEL::ERROR, jmsg(msg, msgParams...));
 		}
 
@@ -106,7 +127,10 @@ namespace Jengine {
 		/// Fatal //////////////
 		////////////////////////
 		template <typename... T>
-		void jfatal(std::string msg, T... msgParams) {
+		void jfatal(
+				std::string msg,
+				T... msgParams)
+		{
 			std::cout << createMessage(LEVEL::FATAL, jmsg(msg, msgParams...));
 			exit(-1);
 		}
@@ -115,7 +139,11 @@ namespace Jengine {
 		/// Assert /////////////
 		////////////////////////
 		template <typename... T>
-		void jassert(bool x, std::string msg, T... msgParams) {
+		void jassert(
+				bool x,
+				std::string msg,
+				T... msgParams)
+		{
 			if (x) {
 				return;
 			}

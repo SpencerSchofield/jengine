@@ -4,7 +4,12 @@
 
 namespace Jengine {
 
-	VertexAttribute::VertexAttribute(unsigned int index, unsigned int type, unsigned int count, unsigned int offset, unsigned int* const size)
+	VertexAttribute::VertexAttribute(
+			unsigned int index,
+			unsigned int type,
+			unsigned int count,
+			unsigned int offset,
+			unsigned int* const size)
 	{
 		unsigned int sizes[] = {1,1,sizeof(short),sizeof(short),
 								sizeof(int),sizeof(int),sizeof(float),
@@ -20,14 +25,16 @@ namespace Jengine {
 		this->offset = offset;
 	}
 
-	void VertexAttribute::enable() {
+	void VertexAttribute::enable()
+	{
 		if (this->enabled)
 			return;
 		glEnableVertexAttribArray(this->index);
 		this->enabled = true;
 	}
 
-	void VertexAttribute::disable() {
+	void VertexAttribute::disable()
+	{
 		if (!this->enabled)
 			return;
 		glDisableVertexAttribArray(this->index);
@@ -35,7 +42,10 @@ namespace Jengine {
 	}
 
 
-	void VertexAttribute::createAttribute(unsigned int stride) const {
-		glVertexAttribPointer(this->index, this->count, this->type, GL_FALSE, stride, reinterpret_cast<const void*>(this->offset));
+	void VertexAttribute::createAttribute(
+			unsigned int stride) const
+	{
+		glVertexAttribPointer(this->index, this->count, this->type,
+			GL_FALSE, stride, reinterpret_cast<const void*>(this->offset));
 	}
 }

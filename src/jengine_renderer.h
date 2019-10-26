@@ -17,26 +17,45 @@ namespace Jengine {
 	class Renderer
 	{
 	public:
-		Renderer(const char* name, int width, int height, bool vsync);
+		Renderer(
+				const char* name,
+				int width,
+				int height,
+				bool vsync);
 		virtual ~Renderer();
 		void startFrame() const;
 		void endFrame() const;
-		void setClearColor(float r, float g, float b, float a);
-		void clearColor(float& r, float& g, float& b, float& a) const;
+		void setClearColor(
+				float r,
+				float g,
+				float b,
+				float a);
+		void clearColor(
+				float& r,
+				float& g,
+				float& b,
+				float& a) const;
 		bool shouldClose() const;
+
 		GLFWwindow* window;
 
-		void renderQueue(Camera* camera);
-		void push(Model* model, glm::mat4* transform, Shader* shader);
+		void renderQueue(
+				Camera* camera);
+		void push(
+				Model* model,
+				glm::mat4* transform,
+				Shader* shader);
 		void renderFlush();
-
-
-		void drawTriangles(VertexArray* vertexArray, Shader* shader) const;
-		void drawModel(Model* model, Shader* shader) const;
-
+		void drawTriangles(
+				VertexArray* vertexArray,
+				Shader* shader) const;
+		void drawModel(
+				Model* model,
+				Shader* shader) const;
 		int width() const;
 		int height() const;
 		float aspectRatio() const;
+
 	private:
 		struct {float r,g,b,a;} color;
 
