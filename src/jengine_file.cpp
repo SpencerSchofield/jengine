@@ -10,6 +10,7 @@ namespace Jengine::File {
 		FILE* file = fopen(filePath.c_str(), "rb");
 		if (!file) {
 			JENGINE_WARN("File ({0}) could not be opened", filePath);
+			fclose(file);
 			return {"", false};
 		}
 		std::fseek(file, 0, SEEK_END);
@@ -21,6 +22,7 @@ namespace Jengine::File {
 		buffer[length] = '\0';
 		std::string out(buffer);
 		delete [] buffer;
+		fclose(file);
 		return {out};
 	}
 
